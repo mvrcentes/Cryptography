@@ -1,3 +1,6 @@
+> [!NOTE]
+> El uso de librerías fue solo para estilizar. 
+
 # Parte 2:
 
 1. Conversión de palabras en texto ASCII a BINARIO
@@ -6,6 +9,9 @@
 4. Conversión de BINARIO a ASCII
 5. Conversión de BASE64 a ASCII 
 6. Aplicar XOR a un BINARIO 
+7. Generador de llaves dinámicas 
+8. Generar un Cypher en ASCII con llave K de tamaño fijo 
+9. Generar un Cypher en ASCII con llave k de tamaño dinámico 
 
 
 <!--
