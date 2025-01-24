@@ -1,4 +1,5 @@
 import Utility
+from KeyGen import ECCKeyGenerator
 
 if __name__ == '__main__':
     
@@ -49,4 +50,15 @@ if __name__ == '__main__':
     print(f"Texto 2 en binario: \t{binary2}")
     print(f"Resultado XOR: \t\t{utility.xor_binary_strings(bin1=binary1, bin2=binary2)}")
     
+    
+    # Dynamic key generation
+    ecc = ECCKeyGenerator()
+    
+    text = "Hello "
+    private_key, public_key = ecc.generate_key_pair(text)
+    
+    print(f"\nTexto: {text}")
+    print(f"Llave privada: {private_key}")
+    print(f"Llave pública: {public_key}")
+    print(hex(public_key[0]), hex(public_key[1]))
     
