@@ -37,3 +37,16 @@ if __name__ == '__main__':
     base64_text = utility.binary_to_base64(binary)
     print(f"Texto en Base64: {base64_text}")
     print(f"Texto decodificado: {utility.decode_base64(base64_text)}")
+    
+    # XOR Binary
+    print("\nXOR Binary")
+    text1 = "uno"
+    text2 = "one"
+    binary1 = "".join(utility.ascii_to_binary(text1))
+    binary2 = "".join(utility.ascii_to_binary(text2))
+    
+    print(f"Texto 1 en binario: \t{binary1}")
+    print(f"Texto 2 en binario: \t{binary2}")
+    print(f"Resultado XOR: \t\t{utility.xor_binary_strings(bin1=binary1, bin2=binary2)}")
+    
+    

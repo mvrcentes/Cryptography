@@ -126,3 +126,37 @@ class Utility:
         binary_string = self.decode_base64(base64_string)
         ascii_text = self.binary_to_ascii(binary_string)
         return ascii_text
+    
+    #region XOR 
+    
+    # https://stackoverflow.com/questions/19414093/how-to-xor-binary-with-python
+    def xor_binary_strings(self, bin1=None, bin2=None, text1=None, text2=None):
+        """Realiza la operación XOR entre dos cadenas binarias o de texto.
+
+        Parámetros:
+        - bin1, bin2: Cadenas binarias a operar (ejemplo: "1101").
+        - text1, text2: Texto que se convertirá a binario antes del XOR.
+
+        Retorna:
+        - Cadena binaria con el resultado del XOR.
+        """
+
+        # Convertir texto a binario si se proporciona
+        if text1 is not None:
+            bin1 = ''.join(self.ascii_to_binary(text1))
+        if text2 is not None:
+            bin2 = ''.join(self.ascii_to_binary(text2))
+
+        # Validar que ambas cadenas binarias estén definidas
+        if bin1 is None or bin2 is None:
+            raise ValueError("Se requieren bin1/bin2 o text1/text2 para realizar XOR.")
+
+        # Asegurar que ambas cadenas binarias sean de la misma longitud
+        max_len = max(len(bin1), len(bin2))
+        bin1 = bin1.zfill(max_len)  # Rellenar con ceros a la izquierda
+        bin2 = bin2.zfill(max_len)
+
+        # Realizar el XOR bit a bit
+        xor_result = ''.join(str(int(bin1[i]) ^ int(bin2[i])) for i in range(len(bin1)))
+
+        return xor_result
