@@ -7,3 +7,5 @@
 3. Conversión de BINARIO a BASE64
 
 4. Conversión de BINARIO a ASCII
+
+5. Conversión de BASE64 a ASCII 

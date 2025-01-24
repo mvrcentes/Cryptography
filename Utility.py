@@ -14,7 +14,7 @@ class Utility:
         return self.DecimalToBinary(decimal // 2) + str(decimal % 2)
 
     # https://www.geeksforgeeks.org/python-program-to-convert-ascii-to-binary/
-    def BinaryRepresentation(self, text):
+    def ascii_to_binary(self, text):
         binary_strings = []
         for char in text:
             number = ord(char)
@@ -32,7 +32,7 @@ class Utility:
     def print_alternating_colored_binary(self, text):
         words = text.split()
         for i, word in enumerate(words):
-            binary_values = self.BinaryRepresentation(word)
+            binary_values = self.ascii_to_binary(word)
             binary_colored = " ".join(
                 (self.colors[i % len(self.colors)] + b + Style.RESET_ALL)
                 if j % 2 == 0 else b  
@@ -119,5 +119,10 @@ class Utility:
         ascii_text = ''.join(ascii_chars)
 
         return ascii_text
-    #endregion
-    
+
+    #region Base64 to ASCII
+    def base64_to_ascii(self, base64_string):
+        """Convierte una cadena Base64 a texto ASCII."""
+        binary_string = self.decode_base64(base64_string)
+        ascii_text = self.binary_to_ascii(binary_string)
+        return ascii_text
