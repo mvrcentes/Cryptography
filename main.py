@@ -23,3 +23,12 @@ if __name__ == '__main__':
     binary = "".join(utility.BinaryRepresentation(text))
     print(f"Texto en binario" + ":\n" + binary)
     print(f"Texto en Base64: {utility.binary_to_base64(binary)}")
+    
+    # Binary to ASCII
+    print("\nBinary to ASCII")
+    text = "Esto es otra prueba"
+    binary = "".join(utility.BinaryRepresentation(text))
+    print(f"Texto en binario" + ":\n" + binary)
+    print(f"Texto decodificado: {utility.binary_to_ascii(binary)}")
+    
+    

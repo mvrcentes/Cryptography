@@ -101,6 +101,23 @@ class Utility:
 
         return base64_result
     
+    #region Binary to ASCII
+    def binary_to_ascii(self, binary_string):
+        """Convierte una cadena binaria a texto ASCII."""
+        
+        # Asegurar que la longitud del binario sea múltiplo de 8
+        if len(binary_string) % 8 != 0:
+            raise ValueError("La longitud de la cadena binaria debe ser múltiplo de 8 bits.")
 
+        # Dividir la cadena binaria en bloques de 8 bits
+        binary_chunks = [binary_string[i:i+8] for i in range(0, len(binary_string), 8)]
 
-# 
+        # Convertir cada bloque de 8 bits a un carácter ASCII
+        ascii_chars = [chr(int(chunk, 2)) for chunk in binary_chunks]
+
+        # Unir todos los caracteres para formar la cadena ASCII final
+        ascii_text = ''.join(ascii_chars)
+
+        return ascii_text
+    #endregion
+    
