@@ -77,6 +77,29 @@ class Utility:
 
         return decoded_text
     
+    #region Binary to Base64
+    def binary_to_base64(self, binary_string):
+        """Convierte una cadena binaria a Base64 utilizando la tabla generada dinámicamente."""
+        base64_chars = self.generate_base64_alphabet()
+
+        # Asegurar que la longitud de la cadena binaria sea múltiplo de 6
+        padding_length = (6 - len(binary_string) % 6) % 6
+        binary_string += '0' * padding_length  # Rellenar con ceros si es necesario
+
+        # Dividir la cadena binaria en bloques de 6 bits
+        binary_chunks = [binary_string[i:i + 6] for i in range(0, len(binary_string), 6)]
+
+        # Convertir cada bloque de 6 bits a decimal y luego a Base64
+        base64_result = ""
+        for chunk in binary_chunks:
+            decimal_value = int(chunk, 2)
+            base64_result += base64_chars[decimal_value]
+
+        # Agregar padding si la longitud original del binario no era múltiplo de 24 bits
+        if padding_length > 0:
+            base64_result += "=" * (padding_length // 2)
+
+        return base64_result
     
 
 
