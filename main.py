@@ -62,3 +62,41 @@ if __name__ == '__main__':
     print(f"Llave pública: {public_key}")
     print(hex(public_key[0]), hex(public_key[1]))
     
+    # Cypher with static K 
+    text = "Hello World"
+    key = "mysecretkey12345" # clave fija de 16 caracteres
+    
+    print(f"\nTexto: {text}")  
+    print(f"Llave: {key}")
+    
+    # Cifrado
+    encrypted_binary = utility.encrypt_with_fixed_key(text, key)
+    print(f"Texto cifrado: {encrypted_binary}")
+    
+    # Descifrado
+    decrypted_text = utility.decrypt_with_fixed_key(encrypted_binary, key)
+    print(f"Texto descifrado: {decrypted_text}")
+    
+    # Cypher with dynamic K
+    text = "Hello World"
+    
+    # Claves de diferente longitud
+    keys = [
+        "short",  # Clave corta
+        "thisisalongerkey",  # Clave más larga
+        "1234567890123456",  # Clave exacta de 16 caracteres
+        "dynamic-key-size-test"  # Clave aún más larga
+    ]
+
+    for key in keys:
+        print(f"\nTexto: {text}")
+        print(f"Clave: {key}")
+        
+        # Cifrado
+        encrypted_binary = utility.encrypt_with_fixed_key(text, key)
+        print(f"Texto cifrado: {encrypted_binary}")
+        
+        # Descifrado
+        decrypted_text = utility.decrypt_with_fixed_key(encrypted_binary, key)
+        print(f"Texto descifrado: {decrypted_text}")
+    

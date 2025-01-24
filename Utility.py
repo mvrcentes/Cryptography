@@ -160,3 +160,50 @@ class Utility:
         xor_result = ''.join(str(int(bin1[i]) ^ int(bin2[i])) for i in range(len(bin1)))
 
         return xor_result
+
+    #region cypher ASCII k Fijo
+    def encrypt_with_fixed_key(self, text, key):
+        """Cifra un texto ASCII usando una clave fija mediante XOR.
+
+        Parámetros:
+        - text: Cadena de texto ASCII a cifrar.
+        - key: Clave de tamaño fijo en ASCII.
+
+        Retorna:
+        - Texto cifrado en binario.
+        """
+        # Convertir texto y clave a binario
+        binary_text = ''.join(self.ascii_to_binary(text))
+        binary_key = ''.join(self.ascii_to_binary(key))
+
+        # Repetir la clave hasta igualar la longitud del texto
+        extended_key = (binary_key * (len(binary_text) // len(binary_key))) + binary_key[:len(binary_text) % len(binary_key)]
+
+        # Aplicar XOR bit a bit
+        encrypted_binary = ''.join(str(int(binary_text[i]) ^ int(extended_key[i])) for i in range(len(binary_text)))
+
+        return encrypted_binary
+
+    def decrypt_with_fixed_key(self, encrypted_binary, key):
+        """Descifra un texto cifrado usando una clave fija mediante XOR.
+
+        Parámetros:
+        - encrypted_binary: Texto cifrado en binario.
+        - key: Clave en ASCII usada en el cifrado.
+
+        Retorna:
+        - Texto original en ASCII.
+        """
+        # Convertir clave a binario
+        binary_key = ''.join(self.ascii_to_binary(key))
+
+        # Repetir la clave hasta igualar la longitud del texto cifrado
+        extended_key = (binary_key * (len(encrypted_binary) // len(binary_key))) + binary_key[:len(encrypted_binary) % len(binary_key)]
+
+        # Aplicar XOR para descifrar
+        decrypted_binary = ''.join(str(int(encrypted_binary[i]) ^ int(extended_key[i])) for i in range(len(encrypted_binary)))
+
+        # Convertir el binario descifrado a ASCII
+        decrypted_text = self.binary_to_ascii(decrypted_binary)
+
+        return decrypted_text
