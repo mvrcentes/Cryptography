@@ -1,7 +1,29 @@
 > [!NOTE]
-> El uso de librerías fue solo para estilizar. 
+> El uso de librerías fue solo para estilizar. Y tener una mejora legibilidad
+
+
 
 # Parte 2:
+
+> **Note**
+> Solo si se quiere usar un entorno virtual de lo contrario solo hacer el paso 3
+## Comandos 
+1. 
+```bash 
+python3 -m venv [nombre del entorno virtual] 
+```
+2. 
+```bash
+source [nombre del entorno virtual]/bin/activte
+```
+3. 
+```bash
+pip install -r requirements.tsxt
+```
+
+
+
+## Indice 
 
 1. Conversión de palabras en texto ASCII a BINARIO
 2. Conversión de palabras en texto BASE64 a BINARIO
