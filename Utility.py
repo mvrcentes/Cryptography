@@ -207,3 +207,5 @@ class Utility:
         decrypted_text = self.binary_to_ascii(decrypted_binary)
 
         return decrypted_text
+    
+# 

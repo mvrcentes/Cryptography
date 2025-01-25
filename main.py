@@ -82,10 +82,10 @@ if __name__ == '__main__':
     
     # Claves de diferente longitud
     keys = [
-        "short",  # Clave corta
-        "thisisalongerkey",  # Clave más larga
-        "1234567890123456",  # Clave exacta de 16 caracteres
-        "dynamic-key-size-test"  # Clave aún más larga
+        "short",  
+        "thisisalongerkey",  
+        "1234567890123456",  
+        "dynamic-key-size-test"
     ]
 
     for key in keys:
