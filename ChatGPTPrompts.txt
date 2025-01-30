@@ -218,3 +218,8 @@ Realizar la creación de un script que generar un nuevo cypher en ASCII con una 
 
 
 Es decir algo que solo cambiemos el parametro? 
+
+
+#region parte A
+
+Dame el abecesario en español completo con ord(char) de la a - z pero del español que incluyala ñ
