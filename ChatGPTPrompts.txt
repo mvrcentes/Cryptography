@@ -223,3 +223,11 @@ Es decir algo que solo cambiemos el parametro?
 #region parte A
 
 Dame el abecesario en español completo con ord(char) de la a - z pero del español que incluyala ñ
+
+Revisa mi código y verifica que las funciones den un resultado correcto
+
+Ayudame a hacer modular mi código y más universal 
+
+Ayudame a hacer clases implementando las funciones que ya tengo pero solo para el código Affine
+
+Agrega comentarios
