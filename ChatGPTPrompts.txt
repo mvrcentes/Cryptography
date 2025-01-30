@@ -231,3 +231,6 @@ Ayudame a hacer modular mi código y más universal
 Ayudame a hacer clases implementando las funciones que ya tengo pero solo para el código Affine
 
 Agrega comentarios
+
+ahora eso es del cifrado vigenere, tengo que hacer lo mismo con lo que me has ayudado, es decir
+revisarlo, usar modulos, hacerlo en clase y ahora quiero usar colores
