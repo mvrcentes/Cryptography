@@ -1,25 +1,23 @@
 > [!NOTE]
 > El uso de librerías fue solo para estilizar. Y tener una mejora legibilidad
 
+# Lab 1 – Encriptado y Decriptado de Texto
 
+1. Implementación de funcionalidades de encriptado y decriptado
+	•	Cifrado César
+	•	Cifrado Afín
+	•	Cifrado Vigenère
 
-# Parte 2:
+2. Implementación de función para generar un análisis de frecuencias de un texto 
 
-> **Note**
-> Solo si se quiere usar un entorno virtual de lo contrario solo hacer el paso 3
-## Comandos 
-1. 
-```bash 
-python3 -m venv [nombre del entorno virtual] 
-```
-2. 
-```bash
-source [nombre del entorno virtual]/bin/activte
-```
-3. 
+3. Implementación de una función para comparar la distribución encontrada contra la distribución teórica de las letras del castellanos. 
+
+## instalación 
+
 ```bash
 pip install -r requirements.tsxt
 ```
+
 
 
 
