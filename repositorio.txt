@@ -1,1 +1,1 @@
-https://github.com/mvrcentes/Cryptography/tree/EjercicioCriptografía
+https://github.com/mvrcentes/Cryptography/tree/lab1-a
