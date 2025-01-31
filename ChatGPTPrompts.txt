@@ -234,3 +234,100 @@ Agrega comentarios
 
 ahora eso es del cifrado vigenere, tengo que hacer lo mismo con lo que me has ayudado, es decir
 revisarlo, usar modulos, hacerlo en clase y ahora quiero usar colores
+
+#region iniciso 2
+
+bueno ahora con estas funciones quiero que igual uses funciones para poder generaliarlo y hacerlo universial tambien usar clases ty y que tomes en cuenta lo siguiente 
+
+Implementar el uso de funciones para generar un análisis de frecuencia de un texto
+plano. (30 puntos)
+Sugerencias:
+- Para construir una función que calcule las distribución de los caracteres que
+aparecen en el texto cifrado, se espera que su función calcule las probabilidades (las
+frecuencias divido el total de caracteres). (Es recomendable completar las letras
+que no aparezcan en su texto, con probabilidad 0.)
+
+
+Esta bien pero solo quiero que muestras lo caracteres que salieron del texto los otros que no aparecen es decir franquicia == 0 no los muestres para ahorrar espacio gracias 
+
+Bueno pero hace falta ahora entonces invoca las clases de los cifrados para hacerle un análisis de frecuencias a 3 ejemplos, faciles, intermedio, dificil 
+
+Muestra entonces 3 tablas por cada dificultad y por cada cifrado cesar, fin, afínele 
+
+Enfocate en las funciones que ya tengo, entonces arma un diccionario de textos o con las propiedad que necesita cada cipher
+
+Entonces quiero que hagas algo como 
+
+Un texto pequeño, shift:4
+Ahora algo mas complicado, shift:15 
+Un texto mas dificil digamos, shift:25 
+
+Y asi sucesivamente para cada uno y en el for por favor
+
+Casi pero creo que como ocupa mucho entonces voy a tener que repetir codigo jeje entonces solo dámelo en bloques como que si fuera Jupiter notebook pero ya solo esto 
+
+textos_de_prueba = {
+    "Fácil": {
+        "texto": "Hola Mundo",
+        "shift": 4,
+        "key": "llave",
+        "alpha": 5,
+        "beta": 8
+    },
+    "Intermedio": {
+        "texto": "Esto es un cifrado intermedio con más palabras y caracteres especiales!",
+        "shift": 10,
+        "key": "seguridad",
+        "alpha": 7,
+        "beta": 3
+    },
+    "Difícil": {
+        "texto": "La criptografía es un conjunto de técnicas avanzadas para cifrar datos!",
+        "shift": 18,
+        "key": "complejo",
+        "alpha": 11,
+        "beta": 15
+    }
+}
+
+# 📌 Instanciar los cifrados
+caesar_cipher = CaesarCipher()
+vigenere_cipher = VigenereCipher()
+affine_cipher = AffineCipher()
+
+# 📌 Iterar sobre los niveles de dificultad y cifrar los textos
+for nivel, valores in textos_de_prueba.items():
+    print(Fore.YELLOW + f"\n🔹 Nivel de Dificultad: {nivel}")
+
+    # 🔐 Cifrado César
+    caesar_encrypted = caesar_cipher.encrypt(valores["texto"], valores["shift"])
+    caesar_decrypted = caesar_cipher.decrypt(caesar_encrypted, valores["shift"])
+    print(Fore.CYAN + f"📌 César - {nivel}")
+    print(Fore.GREEN + f"   Texto cifrado   : {caesar_encrypted}")
+    print(Fore.YELLOW + f"   Texto descifrado: {caesar_decrypted}")
+
+    # 🔐 Cifrado Vigenère
+    vigenere_encrypted = vigenere_cipher.encrypt(valores["texto"], valores["key"])
+    vigenere_decrypted = vigenere_cipher.decrypt(vigenere_encrypted, valores["key"])
+    print(Fore.CYAN + f"\n📌 Vigenère - {nivel}")
+    print(Fore.GREEN + f"   Texto cifrado   : {vigenere_encrypted}")
+    print(Fore.YELLOW + f"   Texto descifrado: {vigenere_decrypted}")
+
+    # 🔐 Cifrado Afín
+    affine_encrypted = affine_cipher.encrypt(valores["texto"], valores["alpha"], valores["beta"])
+    affine_decrypted = affine_cipher.decrypt(affine_encrypted, valores["alpha"], valores["beta"])
+    print(Fore.CYAN + f"\n📌 Afín - {nivel}")
+    print(Fore.GREEN + f"   Texto cifrado   : {affine_encrypted}")
+    print(Fore.YELLOW + f"   Texto descifrado: {affine_decrypted}")
+
+
+
+Esto divídelo en 3 que son las 3 dificultades para poder generar la tabla de frecuencias por favor 
+
+Bueno ahora tengo que hacer lo siguiente jeje 
+
+Implementar una función para comparar la distribución encontrada contra la
+distribución teórica de las letras del castellanos. (40 puntos)
+
+
+Con las probabilidades de la imagen, y si podemos igual hacer lo de la grafica y lo mismo 3 ejemplos para cada uno jeje 
