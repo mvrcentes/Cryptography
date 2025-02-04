@@ -62,41 +62,23 @@ if __name__ == '__main__':
     print(f"Llave pública: {public_key}")
     print(hex(public_key[0]), hex(public_key[1]))
     
-    # Cypher with static K 
-    text = "Hello World"
-    key = "mysecretkey12345" # clave fija de 16 caracteres
-    
-    print(f"\nTexto: {text}")  
-    print(f"Llave: {key}")
-    
-    # Cifrado
-    encrypted_binary = utility.encrypt_with_fixed_key(text, key)
-    print(f"Texto cifrado: {encrypted_binary}")
-    
-    # Descifrado
-    decrypted_text = utility.decrypt_with_fixed_key(encrypted_binary, key)
-    print(f"Texto descifrado: {decrypted_text}")
-    
-    # Cypher with dynamic K
-    text = "Hello World"
-    
-    # Claves de diferente longitud
-    keys = [
-        "short",  
-        "thisisalongerkey",  
-        "1234567890123456",  
-        "dynamic-key-size-test"
-    ]
+    # Cypher with static key
+    static_key = "myfixedkey123"
+    text = "Hola Mundo"
+    encrypted_text, used_key = utility.encrypt_with_fixed_key(text, static_key=static_key)
 
-    for key in keys:
-        print(f"\nTexto: {text}")
-        print(f"Clave: {key}")
-        
-        # Cifrado
-        encrypted_binary = utility.encrypt_with_fixed_key(text, key)
-        print(f"Texto cifrado: {encrypted_binary}")
-        
-        # Descifrado
-        decrypted_text = utility.decrypt_with_fixed_key(encrypted_binary, key)
-        print(f"Texto descifrado: {decrypted_text}")
-    
+    print(f"Texto cifrado: {encrypted_text}")
+    print(f"Clave utilizada: {used_key}")
+
+    decrypted_text = utility.decrypt_with_fixed_key(encrypted_text, used_key)
+    print(f"Texto descifrado: {decrypted_text}")
+
+    # Cypher with dynamic key
+    text = "Hola Mundo"
+    encrypted_text, used_key = utility.encrypt_with_fixed_key(text, dynamic_key_length=100)
+
+    print(f"Texto cifrado: {encrypted_text}")
+    print(f"Clave generada aleatoriamente: {used_key}")
+
+    decrypted_text = utility.decrypt_with_fixed_key(encrypted_text, used_key)
+    print(f"Texto descifrado: {decrypted_text}")

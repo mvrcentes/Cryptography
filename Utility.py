@@ -1,4 +1,6 @@
 from colorama import Fore, Style, init
+import random
+import string
 
 class Utility:
     def __init__(self):
@@ -161,17 +163,28 @@ class Utility:
 
         return xor_result
 
-    #region cypher ASCII k Fijo
-    def encrypt_with_fixed_key(self, text, key):
-        """Cifra un texto ASCII usando una clave fija mediante XOR.
+    def generate_random_key(self, length):
+        """Genera una clave aleatoria de una longitud específica."""
+        return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(length))
+
+
+    #region cypher ASCII k 
+    def encrypt_with_fixed_key(self, text, static_key="", dynamic_key_length=10):
+        """Cifra un texto usando una clave estática o una clave aleatoria con XOR.
 
         Parámetros:
-        - text: Cadena de texto ASCII a cifrar.
-        - key: Clave de tamaño fijo en ASCII.
+        - text: Texto ASCII a cifrar.
+        - static_key: Clave estática (si se proporciona).
+        - dynamic_key_length: Longitud de la clave aleatoria si `static_key` no está definido.
 
         Retorna:
         - Texto cifrado en binario.
+        - Clave utilizada en el cifrado.
         """
+
+        # Si no se proporciona una clave estática, se genera una aleatoria
+        key = static_key if static_key else self.generate_random_key(dynamic_key_length)
+
         # Convertir texto y clave a binario
         binary_text = ''.join(self.ascii_to_binary(text))
         binary_key = ''.join(self.ascii_to_binary(key))
@@ -182,10 +195,10 @@ class Utility:
         # Aplicar XOR bit a bit
         encrypted_binary = ''.join(str(int(binary_text[i]) ^ int(extended_key[i])) for i in range(len(binary_text)))
 
-        return encrypted_binary
+        return encrypted_binary, key  # Devolvemos el texto cifrado y la clave usada
 
     def decrypt_with_fixed_key(self, encrypted_binary, key):
-        """Descifra un texto cifrado usando una clave fija mediante XOR.
+        """Descifra un texto cifrado usando la misma clave con XOR.
 
         Parámetros:
         - encrypted_binary: Texto cifrado en binario.
@@ -207,5 +220,3 @@ class Utility:
         decrypted_text = self.binary_to_ascii(decrypted_binary)
 
         return decrypted_text
-    
-# 

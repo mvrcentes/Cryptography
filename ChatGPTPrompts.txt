@@ -219,6 +219,15 @@ Realizar la creación de un script que generar un nuevo cypher en ASCII con una 
 
 Es decir algo que solo cambiemos el parametro? 
 
+yudame a mejorar estar funciones porque al parecer el k cuando es dinamico yo lo que le tengo que especificar es la longitud de la clave es decir que si quiero que sea de 300 o 400 de longitud y que tenga aleatoria para generar esa llave 
+
+Entices ayudame a modificar eso 
+
+Agrega parametros para poder usar la misma función algo tipo 
+
+def encrypt_with_fixed_key(self, text, static_key="", dynamic_key=56):
+
+O bueno no se si es mejor usar otra funcio para hacer esto 
 
 #region parte A
 
