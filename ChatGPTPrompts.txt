@@ -344,3 +344,69 @@ Con las probabilidades de la imagen, y si podemos igual hacer lo de la grafica y
 Mejora mi redacción en donde puse textos de conclusión por favor y revisa ortragrafía y grámatica 
 
 Ayudame a a ctualizar mi readme pero no quiero algo muy elaborado solo actualizarlo por favor 
+
+# Parte b
+
+Va entonces tengo que hacer una fuérzanos bruta para el cesar aqui tengo un ejemplo 
+
+# This code will decipher a Caesar Cipher
+
+# Get cipher text
+print("Enter the Caesar Cipher text")
+message = input("> ")
+
+for shift in range(26):
+    result = ''
+    for char in message:
+        if char.isalpha():
+            ascii_offset = ord('A') if char.isupper() else ord('a')
+            char = chr((ord(char) - ascii_offset - shift) % 26 + ascii_offset)
+        result += char
+
+    print(f"Key: {shift} | Decrypted message: {result}")
+
+Pero en lugar de ver hasta que algo haga match, me gustaría poder aplicar algo para que se detengámoslos solo cuando encuentre una palabra que si existe en el español, 
+
+Con lo de que encontraste anda en PHP pero empieza así $palabras_comunes=array( entonces creo que solo puedo cambiar los paréntesis por [ y quitar lo otro pero me dices cual seria el mejor approach 
+
+Mira pues hice otro archivo dic.py 
+
+Donde tengo words = ["word"...] pero en español 
+
+El mensaje cifrado lo tengo en 
+
+ls Cifrados/ceasar.txt
+ Cifrados/ceasar.txt
+
+Y viene todo junto, el texto esta todo junto es decir que no hay espacios entonces hay que tomar eso en cuenta como peudo poner ahora el codigo
+
+Creo que no lo esta haciendo bien porque si te das cuenta, mira esto 🔹 Posible Clave: 0
+🔓 Mensaje Descifrado: JJQAOPÑLHWXAÑEJPLZECEPWHAJYLJOPWJPAARLHQYELJHWWCEHEZWZYÑEMPLCÑWBEYWYÑEMPLWCEHEZWZMWÑWWXÑAREWÑAOQJIAYWJEOILZAZABAJOWYÑQYEWHLOXÑEJZWHWYWMWYEZWZZAILZEBEYWÑÑWMEZWIAJPAAHQOLZAWHCLÑEPILOUYHWRAOYÑEMPLCÑWBEYLOQJWWYYELJJAYAOWÑEWMWÑWWJPEYEMWÑJLOWHWOBQPQÑWOWIAJWVWOZAYEXAÑOACQÑEZWZ
+
+No tiene ninguna palabra valida enotnces si quiere mejor agrega colores, para hacer un print por cada intento, es decir algo mas bonito pero 
+
+Probándotelo shift -1 
+
+Palabras acertadas (segun el dic que te pase) 3 
+Resultado 
+
+Probándotelo shift -2
+
+Palabras acertadas (segun el dic que te pase) 5
+Resultado 
+
+Pero con colores por favor para mejor visibilidad 
+
+Eso es otra cosa a tomar en cuenta pero que 
+
+Asi viene el texto cifrado 
+
+jjqaopñlhwxañejplzecepwhajyljopwjpaarlhqyeljhwwcehezwzyñemplcñwbeywyñemplwcehezwzmwñwwxñarewñaoqjiaywjeoilzazabajowyñqyewhloxñejzwhwywmwyezwzzailzebeywññwmezwiajpaahqolzawhclñepilouyhwraoyñemplcñwbeyloqjwwyyeljjayaowñewmwñwwjpeyemwñjlowhwobqpqñwowiajwvwozayexañoacqñezwz
+
+Entonces el problema de verificarlo con las palabras es que si estuviera la palabra "hola" no sabría como probar si esta en el array porque estaría algo como holamundoestoesunaprueba 
+
+¿Se enteinde? 
+
+NNUESTROLABERINTODIGITALENCONSTANTEEVOLUCIONLAAGILIDADCRIPTOGRAFICACRIPTOAGILIDADPARAABREVIARESUNMECANISMODEDEFENSACRUCIALOSBRINDALACAPACIDADDEMODIFICARRAPIDAMENTEELUSODEALGORITMOSYCLAVESCRIPTOGRAFICOSUNAACCIONNECESARIAPARAANTICIPARNOSALASFUTURASAMENAZASDECIBERSEGURIDAD
+
+Separa este texto para que sea legible 
