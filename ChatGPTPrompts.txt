@@ -412,3 +412,197 @@ Entonces el problema de verificarlo con las palabras es que si estuviera la pala
 NNUESTROLABERINTODIGITALENCONSTANTEEVOLUCIONLAAGILIDADCRIPTOGRAFICACRIPTOAGILIDADPARAABREVIARESUNMECANISMODEDEFENSACRUCIALOSBRINDALACAPACIDADDEMODIFICARRAPIDAMENTEELUSODEALGORITMOSYCLAVESCRIPTOGRAFICOSUNAACCIONNECESARIAPARAANTICIPARNOSALASFUTURASAMENAZASDECIBERSEGURIDAD
 
 Separa este texto para que sea legible 
+
+
+Ahora necesito hacer lo mismo para 
+
+Cypher Afines
+Número a = Rango del 1-16
+Número b = Rango del 1-16
+Texto contiene: extraer de los ataques
+
+Tengo esto de ejemplo 
+
+#To find Greatest Common Divisor using Extended Euclidean Algorithm
+def gcd(a, b): 
+    if a == 0 : 
+        return b  
+    return gcd(b%a, a) 
+
+# To find a inverse (a^-1) in m(m=26).
+def modInverse(a, m) : 
+    a = a % m; 
+    for x in range(1, m) : 
+        if ((a * x) % m == 1) : 
+            return x 
+    return 1
+
+print("Cipher text is:",cipher_text)
+my_keys = []
+print("Hacked Keys might be:(See at the end,found key)")
+for a in range(1,26,1):
+  for b in range(26):
+    if gcd(a,b)==1:   #as we know only 12*26 = 312 cases are there for Relative Prime.
+      temp = ''
+
+      a_inv = modInverse(a,26)
+      for ch in cipher_text:
+        if ch in alphabets:
+          num = (alphabets.find(ch) - b ) *  a_inv     # Pi = [(Ci – b) * a^(-1) ] mod 26
+          num = num % 26
+          if num < 0:
+            num = num + 26
+          temp = temp + alphabets[num]
+        else:
+          temp = temp + ch
+      if temp == plain_text:  #when predicted text is same as Plain text, keys has found.
+        my_keys = [a,b]
+      print("key(%d,%d) ::  %s " %(a,b,temp))
+
+print("\n Key has found:- keys(%d,%d)"% (my_keys[0],my_keys[1]))
+
+Otro ejemplo 
+Source Code for affineHacker.py
+ 1. # Affine Cipher Hacker
+ 2. # http://inventwithpython.com/hacking (BSD Licensed)
+ 3.
+ 4. import pyperclip, affineCipher, detectEnglish, cryptomath
+ 5.
+ 6. SILENT_MODE = False
+ 7.
+ 8. def main():
+ 9.     # You might want to copy & paste this text from the source code at
+10.     # http://invpy.com/affineHacker.py
+11.     myMessage = """U&'<3dJ^Gjx'-3^MS'Sj0jxuj'G3'%j'<mMMjS'g{GjMMg9j{G'g"'gG '<3^MS'Sj<jguj'm'P^dm{'g{G3'%jMgjug{9'GPmG'gG'-m0'P^dm{LU'5&Mm{'_^xg{9"""
+12.
+13.     hackedMessage = hackAffine(myMessage)
+14.
+15.     if hackedMessage != None:
+16.         # The plaintext is displayed on the screen. For the convenience of
+17.         # the user, we copy the text of the code to the clipboard.
+18.         print('Copying hacked message to clipboard:')
+19.         print(hackedMessage)
+20.         pyperclip.copy(hackedMessage)
+21.     else:
+22.         print('Failed to hack encryption.')
+23.
+24.
+25. def hackAffine(message):
+26.     print('Hacking...')
+27.
+28.     # Python programs can be stopped at any time by pressing Ctrl-C (on
+29.     # Windows) or Ctrl-D (on Mac and Linux)
+30.     print('(Press Ctrl-C or Ctrl-D to quit at any time.)')
+31.
+32.     # brute-force by looping through every possible key
+33.     for key in range(len(affineCipher.SYMBOLS) ** 2):
+34.         keyA = affineCipher.getKeyParts(key)[0]
+35.         if cryptomath.gcd(keyA, len(affineCipher.SYMBOLS)) != 1:
+36.             continue
+37.
+38.         decryptedText = affineCipher.decryptMessage(key, message)
+39.         if not SILENT_MODE:
+40.             print('Tried Key %s... (%s)' % (key, decryptedText[:40]))
+41.
+42.         if detectEnglish.isEnglish(decryptedText):
+43.             # Check with the user if the decrypted key has been found.
+44.             print()
+45.             print('Possible encryption hack:')
+46.             print('Key: %s' % (key))
+47.             print('Decrypted message: ' + decryptedText[:200])
+48.             print()
+49.             print('Enter D for done, or just press Enter to continue hacking:')
+50.             response = input('> ')
+51.
+52.             if response.strip().upper().startswith('D'):
+53.                 return decryptedText
+54.     return None
+55.
+56.
+57. # If affineHacker.py is run (instead of imported as a module) call
+58. # the main() function.
+59. if __name__ == '__main__':
+60.     main()
+
+Otro ejemplo 
+# Import the needed libraries
+import string
+from colorama import Fore, init
+
+# Initialise colorama
+init()
+# Function to get Euclidean Algorithm
+def extended_gcd(a, b):
+   """
+   Extended Euclidean Algorithm to find the greatest common divisor
+   and coefficients x, y such that ax + by = gcd(a, b).
+   """
+   if a == 0:
+       return (b, 0, 1)
+   else:
+       g, x, y = extended_gcd(b % a, a)
+       return (g, y - (b // a) * x, x)
+# Function to get the modular Inverse
+def modular_inverse(a, m):
+   """
+   Compute the modular multiplicative inverse of a modulo m.
+   Raises an exception if the modular inverse does not exist.
+   """
+   g, x, y = extended_gcd(a, m)
+   if g != 1:
+       raise Exception('Modular inverse does not exist')
+   else:
+       return x % m
+# Function to decrypt our message.
+def affine_decrypt(ciphertext, a, b):
+   """Decrypt a message encrypted with the Affine Cipher using
+   the given key components a and b."""
+   alphabet = string.ascii_uppercase
+   m = len(alphabet)
+   plaintext = ''
+   # Compute the modular multiplicative inverse of a
+   a_inv = modular_inverse(a, m)
+   # Iterate through each character in the ciphertext
+   for char in ciphertext:
+       # Check if the character is in the alphabet
+       if char in alphabet:
+           # If it's an alphabet letter, decrypt it
+           # Find the index of the character in the alphabet
+           c = alphabet.index(char)
+           # Apply the decryption formula: a_inv * (c - b) mod m
+           p = (a_inv * (c - b)) % m
+           # Append the decrypted character to the plaintext
+           plaintext += alphabet[p]
+       else:
+           # If the character is not in the alphabet, keep it unchanged
+           plaintext += char
+   # Return the decrypted plaintext
+   return plaintext
+# Function to peform brute force attack.
+def affine_brute_force(ciphertext):
+   """Brute-force attack to find possible keys for an Affine Cipher
+   and print potential decryptions for manual inspection."""
+   alphabet = string.ascii_uppercase
+   m = len(alphabet)
+   # Iterate through possible values for a
+   for a in range(1, m):
+       # Ensure a and m are coprime
+       if extended_gcd(a, m)[0] == 1:
+           # Iterate through possible values for b
+           for b in range(0, m):
+               # Decrypt using the current key
+               decrypted_text = affine_decrypt(ciphertext, a, b)
+               # Print potential decryption for manual inspection
+               print(f"Key (a={a}, b={b}): {decrypted_text}")
+
+ciphertext = input(f"{Fore.GREEN}[?] Enter Message to decrypt: ")
+# Perform a brute-force attack to find potential decrypted message.
+affine_brute_force(ciphertext)
+
+Igual siempre con colores, la forma en la que viene el ejmplo es zigiuñpjdipoziyicbdoddiyxbñhjorbpbdodciñmidiiahxoixdipjcohosmicioxhtpiidmrdipixxjxxiqipjmzoditbpbdodyxmybopsmiñixubhbjopjcohoyozhicpiixpouiujxbodiubpicdicbchiuocfxjtoxbznjxuoybjzqopbjcoociuñxicocsmipjrxoxjzxiymñixoxcixoñbdouizhinmixjzpocsmidiujchxoxjzyxbñhjorbpbdodxiiuñpokozdjxoñbdouizhicmcypoqicyxbñhjrxonbyocfoprjxbhujcyjuñxjuihbdjcñjxjhxjczmiqjcfcirmxjcchibzybdizhicbxqiyjujmzypoxjigiuñpjdipobuñjxhozybodipoyxbñhjorbpbdodizzmichxotohoppoyjzhbzmoyjzhxopocouizokocdbzoubyocdiybtixcirmxbdod
+
+Esto se puede paralelizar para que sea más rapido? En python y estoy en apple silicone 
+
+Para mejorar el normal sin paralelismo quiero que cuando pruebe algo y encuentre un resultado con una palabra que si encuentre en word haga un stop y pida por input [1]  Continuar [2]  Encontrada
+
+Me pregunta literalmente con cada prueba que hace, quiero que me pregunte hasta que encuentre una palabra de word, es decir hasta que algo coincida realmente, o hasta que las palabras acertadas sean arriba de 200 por ejemplo 
