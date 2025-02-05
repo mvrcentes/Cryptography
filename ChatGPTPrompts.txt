@@ -347,6 +347,8 @@ Ayudame a a ctualizar mi readme pero no quiero algo muy elaborado solo actualiza
 
 # Parte b
 
+Existe alguna API o libreria que contenga palabras en español todas las palabras validas en español? 
+
 Va entonces tengo que hacer una fuérzanos bruta para el cesar aqui tengo un ejemplo 
 
 # This code will decipher a Caesar Cipher
