@@ -707,3 +707,387 @@ fuerza_bruta_cesar(mensaje_cifrado)
 Pero agregándo lo nuevo de las cosas del análisis de frencuencia? 
 
 
+Por favor pero por favor pon pero mucha atención 
+
+Pero man alv quiero que me generes un Jupiter notebook o me des los bloques de codigo para generarlo pero como lo hiciste con el otro Caeser hace poco 
+
+
+Esto ve 
+
+
+Voy a estructurar un Jupyter Notebook que haga lo mismo que tu script actual, pero además agregue el análisis de frecuencia que hicimos antes. Esto incluirá:
+	1.	Cifrado César con fuerza bruta.
+	2.	Análisis de frecuencia del mensaje cifrado.
+	3.	Comparación con la distribución teórica en español.
+	4.	Identificación automática de la clave basada en la frecuencia de letras.
+	5.	Visualización con tablas (prettytable) y gráficos (matplotlib).
+
+
+
+Script actual 
+
+
+import string
+from colorama import init, Fore, Style
+from dic import words  # Importamos el diccionario de palabras en español
+
+# Inicializar colorama
+init(autoreset=True)
+
+# Definir el alfabeto en español con la "Ñ"
+ALFABETO = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
+UMBRAL_PALABRAS = 200  # Umbral para detenerse si hay muchas palabras acertadas
+
+def extended_gcd(a, b):
+    """Algoritmo de Euclides Extendido para encontrar el MCD y los coeficientes."""
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, x, y = extended_gcd(b % a, a)
+        return (g, y - (b // a) * x, x)
+
+def modular_inverse(a, m):
+    """Calcula el inverso modular de 'a' módulo 'm'."""
+    g, x, _ = extended_gcd(a, m)
+    if g != 1:
+        return None  # No tiene inverso modular
+    return x % m
+
+def decrypt_affine(texto, a, b):
+    """Descifra un texto cifrado con el cifrado Afín."""
+    resultado = ""
+    a_inv = modular_inverse(a, len(ALFABETO))
+    if a_inv is None:
+        return None  # Saltar si no tiene inverso
+
+    for char in texto:
+        if char in ALFABETO:
+            indice = (a_inv * (ALFABETO.index(char) - b)) % len(ALFABETO)
+            resultado += ALFABETO[indice]
+        else:
+            resultado += char  # Mantener otros caracteres
+    return resultado
+
+def contar_palabras_validas(texto, diccionario):
+    """Cuenta cuántas palabras del diccionario aparecen en el texto sin espacios."""
+    palabras_encontradas = 0
+    for palabra in diccionario:
+        if palabra in texto.lower():
+            palabras_encontradas += 1
+    return palabras_encontradas
+
+def brute_force_affine(texto_cifrado):
+    """Prueba todas las combinaciones de 'a' y 'b' y se detiene si encuentra palabras."""
+
+    mejor_a, mejor_b = None, None
+    mejor_texto = ""
+    mejor_palabras = 0
+
+    print(Fore.YELLOW + "\n🔹 Iniciando Fuerza Bruta para el Cifrado Afín...")
+
+    for a in range(1, 17):  # Recorrer 'a' en el rango permitido
+        if extended_gcd(a, len(ALFABETO))[0] != 1:
+            continue  # Saltar si 'a' no es coprimo con el tamaño del alfabeto
+
+        for b in range(1, 17):  # Recorrer 'b' en el rango permitido
+            texto_descifrado = decrypt_affine(texto_cifrado, a, b)
+            if texto_descifrado is None:
+                continue  # Saltar si no se pudo descifrar
+
+            palabras_validas = contar_palabras_validas(texto_descifrado, words)
+
+            # Determinar color basado en cantidad de palabras acertadas
+            color = Fore.GREEN if palabras_validas > 10 else Fore.RED
+
+            print(f"{Fore.CYAN}🔹 Probando (a={a}, b={b})")
+            print(f"{color}✅ Palabras acertadas: {palabras_validas}")
+            print(f"{color}🔓 Resultado: {texto_descifrado[:150]}...")  # Solo primeros 150 caracteres
+            print(Style.RESET_ALL)
+
+            # Guardar el mejor resultado
+            if palabras_validas > mejor_palabras:
+                mejor_palabras = palabras_validas
+                mejor_a, mejor_b = a, b
+                mejor_texto = texto_descifrado
+
+            # 🚨 **Solo preguntar si supera el umbral de palabras encontradas**
+            if palabras_validas >= UMBRAL_PALABRAS:
+                print(f"{Fore.YELLOW}\n🔹 Se encontraron muchas palabras en el intento (a={a}, b={b})")
+                print(f"{Fore.GREEN}🔓 Texto: {texto_descifrado[:300]}...\n")  # Mostrar hasta 300 caracteres
+                
+                print("¿Quieres continuar con más claves?")
+                print("[1] Continuar probando más claves")
+                print("[2] Detenerse y mostrar el mejor resultado")
+                
+                opcion = input("Selecciona una opción: ").strip()
+                
+                if opcion == "2":
+                    print(f"\n{Fore.YELLOW}🔹 Mejor Clave Encontrada: (a={mejor_a}, b={mejor_b})")
+                    print(f"{Fore.GREEN}🔓 Mensaje Descifrado: {mejor_texto[:300]}\n")  # Mostrar hasta 300 caracteres
+                    return  # Salir de la función
+
+    # Mostrar el mejor resultado encontrado si no se detuvo antes
+    if mejor_a is not None:
+        print(f"\n{Fore.YELLOW}🔹 Mejor Clave Encontrada: (a={mejor_a}, b={mejor_b})")
+        print(f"{Fore.GREEN}🔓 Mensaje Descifrado: {mejor_texto[:300]}\n")  # Mostrar hasta 300 caracteres
+
+# Cargar el mensaje cifrado desde el archivo
+with open("Cifrados/afines.txt", "r", encoding="utf-8") as file:
+    mensaje_cifrado = file.read().strip().upper()
+
+# Ejecutar la fuerza bruta
+brute_force_affine(mensaje_cifrado)
+
+# https://thepythoncode.com/article/how-to-crack-the-affine-cipher-in-python
+# https://github.com/sukhdev01/Attacks-on-Affine-Cipher/blob/master/Brute_force_attacks_on_Affine_cipher.ipynb
+# 
+
+
+
+Pero me puedes dar el codigo por bloques por favor divídelo por las secciones que son y me das solo ese pedazo de codgio que corresponde por favor 
+
+
+
+En las imágenes te doy un poco de ayuda para el análisis de frecuencias gracias 
+
+
+
+
+Te voy a dar a un ejemplo de como deberia de ser el resultado final mira que tiene pretty table y otras cosas bonitas entonces asi lo quiero 
+
+
+#!/usr/bin/env python
+# coding: utf-8
+
+# # Caesar Brute Force
+
+# In[6]:
+
+
+import os
+
+# Obtener el directorio actual en Jupyter Notebook
+directorio_actual = os.getcwd()
+
+# Buscar el directorio raíz "Cryptography"
+while not os.path.basename(directorio_actual) == "Cryptography":
+    directorio_actual = os.path.dirname(directorio_actual)  # Retroceder un nivel
+
+# Construir la ruta del archivo cifrado
+ruta_archivo = os.path.join(directorio_actual, "Cifrados", "ceasar.txt")
+
+# Verificar si el archivo existe antes de abrirlo
+if os.path.exists(ruta_archivo):
+    with open(ruta_archivo, "r", encoding="utf-8") as file:
+        mensaje_cifrado = file.read().strip().upper()
+    print(f"Archivo cargado desde: {ruta_archivo}")
+else:
+    print(f"❌ Error: No se encontró el archivo en {ruta_archivo}")
+
+
+# In[14]:
+
+
+import string
+import matplotlib.pyplot as plt
+from prettytable import PrettyTable
+from collections import Counter
+from colorama import init, Fore, Style
+from dic import words  # Importamos el diccionario de palabras en español
+
+# Inicializar colorama
+init(autoreset=True)
+
+# 📌 Definir el alfabeto en español con la "Ñ"
+ALFABETO = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
+
+# 📌 Distribución teórica de frecuencias en español
+distribucion_teorica = {
+    "A": 12.53, "B": 1.42, "C": 4.68, "D": 5.86, "E": 13.68, "F": 0.69, "G": 1.01, "H": 0.70,
+    "I": 6.25, "J": 0.44, "K": 0.02, "L": 4.97, "M": 3.15, "N": 6.71, "Ñ": 0.31, "O": 8.68,
+    "P": 2.51, "Q": 0.88, "R": 6.87, "S": 7.98, "T": 4.63, "U": 3.93, "V": 0.90, "W": 0.01,
+    "X": 0.22, "Y": 0.90, "Z": 0.52
+}
+
+
+mensaje_cifrado.strip().upper()
+
+
+# ## Calcular la frencuencia observable
+
+# In[ ]:
+
+
+def analizar_frecuencia(texto):
+    """Calcula la frecuencia de letras en el texto cifrado."""
+    total = len(texto)
+    frecuencia = Counter(texto.upper())
+
+    # Filtrar solo letras del alfabeto español
+    frecuencia_filtrada = {letra: (frecuencia[letra] / total) * 100 for letra in distribucion_teorica.keys() if letra in frecuencia}
+    
+    return frecuencia_filtrada
+
+# 📌 Calcular la frecuencia observada
+frecuencia_observada = analizar_frecuencia(mensaje_cifrado)
+
+# 📊 Crear tabla de frecuencias
+tabla_frecuencia = PrettyTable(["Letra", "Frecuencia (%)", "Teórica (%)", "Diferencia (%)"])
+for letra in sorted(frecuencia_observada.keys(), key=lambda x: frecuencia_observada[x], reverse=True):
+    teorica = distribucion_teorica[letra]
+    observada = frecuencia_observada[letra]
+    diferencia = round(abs(teorica - observada), 2)
+    tabla_frecuencia.add_row([letra, round(observada, 2), teorica, diferencia])
+
+print("📊 Comparación de Frecuencias")
+print(tabla_frecuencia)
+
+
+# In[17]:
+
+
+# 📌 Crear tabla de frecuencias
+tabla_frecuencia = PrettyTable(["Letra", "Frecuencia", "Probabilidad (%)"])
+for letra, freq in sorted(frecuencia_observada.items(), key=lambda x: x[1], reverse=True):
+    tabla_frecuencia.add_row([letra, round(freq * len(texto_cifrado) / 100), round(freq, 2)])
+
+print("📊 Análisis de Frecuencia de Caracteres")
+print(tabla_frecuencia)
+
+
+# ## Distribución teórica
+
+# In[18]:
+
+
+def analizar_frecuencia(texto):
+    """Calcula la frecuencia de letras en el texto cifrado."""
+    total = len(texto)
+    frecuencia = Counter(texto.upper())
+
+    # Filtrar solo letras del alfabeto español
+    frecuencia_filtrada = {letra: (frecuencia[letra] / total) * 100 for letra in distribucion_teorica.keys() if letra in frecuencia}
+    
+    return frecuencia_filtrada
+
+# 📌 Calcular la frecuencia observada
+frecuencia_observada = analizar_frecuencia(mensaje_cifrado)
+
+# 📊 Crear tabla de frecuencias
+tabla_frecuencia = PrettyTable(["Letra", "Frecuencia (%)", "Teórica (%)", "Diferencia (%)"])
+for letra in sorted(frecuencia_observada.keys(), key=lambda x: frecuencia_observada[x], reverse=True):
+    teorica = distribucion_teorica[letra]
+    observada = frecuencia_observada[letra]
+    diferencia = round(abs(teorica - observada), 2)
+    tabla_frecuencia.add_row([letra, round(observada, 2), teorica, diferencia])
+
+print("📊 Comparación de Frecuencias")
+print(tabla_frecuencia)
+
+
+# ## Gráficos
+
+# In[19]:
+
+
+import matplotlib.pyplot as plt
+
+letras = list(frecuencia_observada.keys())
+observada = [frecuencia_observada[letra] for letra in letras]
+teorica = [distribucion_teorica[letra] for letra in letras]
+
+plt.figure(figsize=(10, 5))
+plt.bar(letras, observada, alpha=0.6, label="Observada", color="blue")
+plt.bar(letras, teorica, alpha=0.6, label="Teórica", color="red")
+plt.xlabel("Letra")
+plt.ylabel("Frecuencia (%)")
+plt.title("Comparación de Frecuencias Observada vs. Teórica")
+plt.legend()
+plt.show()
+
+
+# In[20]:
+
+
+# 📌 Determinar la clave probable con base en la diferencia mínima
+letra_mas_comun = max(frecuencia_observada, key=frecuencia_observada.get)
+letra_mas_comun_esperada = max(distribucion_teorica, key=distribucion_teorica.get)
+
+# 📌 Diferencia de desplazamiento en el alfabeto
+desplazamiento_estimado = (ALFABETO.index(letra_mas_comun) - ALFABETO.index(letra_mas_comun_esperada)) % len(ALFABETO)
+
+print(f"🔑 Clave probable estimada (Cifrado César): {desplazamiento_estimado}")
+
+
+# La W aparece muchas veces (15.93%), pero en español casi nunca se usa (0.01%). Esto nos dice que W podría ser una E o una A, que son letras muy comunes en español.
+# 
+# Al comparar con el español normal, parece que el mensaje fue cambiado con un desplazamiento de 19 en el Cifrado César. Eso significa que cada letra pudo haber sido movida 19 lugares en el alfabeto.
+
+# In[21]:
+
+
+def descifrar_cesar(texto, shift):
+    """Descifra un texto con un desplazamiento dado en el Cifrado César."""
+    resultado = ""
+    for char in texto:
+        if char in ALFABETO:
+            indice = (ALFABETO.index(char) - shift) % len(ALFABETO)
+            resultado += ALFABETO[indice]
+        else:
+            resultado += char  # Mantener otros caracteres
+    return resultado
+
+def contar_palabras_validas(texto, diccionario):
+    """Intenta encontrar palabras en el texto sin espacios comparando con un diccionario."""
+    palabras_encontradas = 0
+    for i in range(len(texto)):
+        for j in range(i + 2, len(texto) + 1):  # Busca palabras de mínimo 2 letras
+            if texto[i:j].lower() in diccionario:
+                palabras_encontradas += 1
+    return palabras_encontradas
+
+def fuerza_bruta_cesar(mensaje):
+    """Prueba todos los desplazamientos (0-26) y muestra resultados con colores."""
+    
+    mejor_shift = None
+    mejor_texto = ""
+    mejor_palabras = 0
+
+    for shift in range(len(ALFABETO)):  
+        texto_descifrado = descifrar_cesar(mensaje, shift)
+        palabras_validas = contar_palabras_validas(texto_descifrado, words)
+
+        # Determinar color basado en cantidad de palabras acertadas
+        color = Fore.GREEN if palabras_validas > 5 else Fore.RED
+
+        print(f"{Fore.CYAN}Probando shift: {shift}")
+        print(f"{color}Palabras acertadas: {palabras_validas}")
+        print(f"{color}Resultado: {texto_descifrado[:100]}...")  # Solo imprime los primeros 100 caracteres
+        print(Style.RESET_ALL)
+
+        # Guardar el mejor resultado
+        if palabras_validas > mejor_palabras:
+            mejor_palabras = palabras_validas
+            mejor_shift = shift
+            mejor_texto = texto_descifrado
+
+    # Mostrar el mejor resultado encontrado
+    if mejor_shift is not None:
+        print(f"\n{Fore.YELLOW}🔹 Posible Clave: {mejor_shift}")
+        print(f"{Fore.GREEN}🔓 Mensaje Descifrado: {mejor_texto}\n")
+
+# 📌 Ejecutar la fuerza bruta
+fuerza_bruta_cesar(mensaje_cifrado)
+
+
+# ## Referencias
+# 
+# https://stackoverflow.com/questions/16291818/brute-force-caeser-cipher-python
+# https://dev.to/cognivibes/hacking-the-caesar-cipher-3ic1
+# GPT
+
+
+
+¿Se enteinde lo que te pido? 
+
+El ultimo codigo que te pase es un ejemplo es como un template 
