@@ -23,6 +23,11 @@ class Utility:
             b_repr = self.DecimalToBinary(number).zfill(8)  # Asegurar 8 bits por carácter
             binary_strings.append(b_repr)
         return binary_strings
+    
+    def string_to_bits(self, text):
+        """Convierte una cadena a su representación binaria."""
+        return ''.join(self.DecimalToBinary(ord(char)) for char in text)
+
 
     def print_colored_text(self, text):
         words = text.split()
