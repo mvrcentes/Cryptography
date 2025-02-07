@@ -1091,3 +1091,394 @@ fuerza_bruta_cesar(mensaje_cifrado)
 ¿Se enteinde lo que te pido? 
 
 El ultimo codigo que te pase es un ejemplo es como un template 
+
+
+Inicio de mi actual script 
+
+import re
+import itertools
+import multiprocessing
+from collections import Counter
+from math import sqrt
+from dic import words  # Importa el diccionario de palabras en español
+
+# 📌 Definir el alfabeto español
+ALPHABET = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'
+
+# 📌 Distribución teórica de frecuencias de letras en español
+DISTRIBUCION_TEORICA = {
+    "A": 12.53, "B": 1.42, "C": 4.68, "D": 5.86, "E": 13.68, "F": 0.69, "G": 1.01, 
+    "H": 0.70, "I": 6.25, "J": 0.44, "K": 0.02, "L": 4.97, "M": 3.15, "N": 6.71, 
+    "Ñ": 0.31, "O": 8.68, "P": 2.51, "Q": 0.88, "R": 6.87, "S": 7.98, "T": 4.63, 
+    "U": 3.93, "V": 0.90, "W": 0.01, "X": 0.22, "Y": 0.90, "Z": 0.52
+}
+
+# 📌 Cargar el texto cifrado desde un archivo
+def load_ciphertext(filename="Cifrados/vigenere.txt"):
+    with open(filename, "r", encoding="utf-8") as file:
+        return re.sub(r'[^A-ZÑ]', '', file.read().upper())  # Filtrar solo letras del alfabeto español
+
+# 📌 Índice de coincidencia para estimar la longitud de la clave
+def index_of_coincidence(text):
+    frequencies = Counter(text)
+    N = len(text)
+    ic = sum(f * (f - 1) for f in frequencies.values()) / (N * (N - 1))
+    return ic * len(ALPHABET)  # Normalizamos con el alfabeto español
+
+# 📌 Estimar la longitud de la clave usando el índice de coincidencia
+def estimate_key_length(ciphertext, max_length=16):
+    best_length = 1
+    best_ic = 0
+    for key_length in range(1, max_length + 1):
+        slices = [''.join(ciphertext[i::key_length]) for i in range(key_length)]
+        avg_ic = sum(index_of_coincidence(s) for s in slices) / key_length
+        if avg_ic > best_ic:
+            best_ic = avg_ic
+            best_length = key_length
+    return best_length
+
+# 📌 Obtener frecuencia de letras en un texto
+def get_frequencies(text):
+    total = len(text)
+    return {letter: text.count(letter) / total for letter in ALPHABET}
+
+# 📌 Calcular similitud con el español usando producto interno
+def similarity_score(text):
+    freqs = get_frequencies(text)
+    return sum(freqs.get(letter, 0) * DISTRIBUCION_TEORICA.get(letter, 0) for letter in ALPHABET)
+
+# 📌 Decodificar un texto cifrado con una clave dada
+def decrypt(ciphertext, key):
+    plaintext = ''
+    key_length = len(key)
+    for i, char in enumerate(ciphertext):
+        p = (ALPHABET.index(char) - ALPHABET.index(key[i % key_length])) % len(ALPHABET)
+        plaintext += ALPHABET[p]
+    return plaintext
+
+# 📌 Evaluar una clave en paralelo
+def evaluate_key(args):
+    key, ciphertext, threshold = args
+    decrypted_text = decrypt(ciphertext, key)
+    
+    # Evaluar el número de palabras en español encontradas
+    words_found = sum(1 for word in decrypted_text.split() if word.lower() in words)
+
+    # Evaluar similitud con el español
+    score = similarity_score(decrypted_text)
+
+    # 📌 Imprimir el intento de clave
+    print(f"🔍 Intentando clave: {key} | Similitud: {score:.2f} | Palabras encontradas: {words_found}")
+
+    # Si encuentra muchas palabras válidas, devolver inmediatamente
+    if words_found >= threshold:
+        return key, decrypted_text, score, True  # Señal de que encontramos una clave válida
+
+    return key, decrypted_text, score, False  # Clave no 100% confirmada
+
+# 📌 Paralelizar la búsqueda de la mejor clave
+def find_best_key_parallel(ciphertext, key_length, threshold=200, num_workers=4):
+    best_key = None
+    best_text = ""
+    best_score = -float("inf")
+
+    pool = multiprocessing.Pool(num_workers)
+
+    # Generar todas las combinaciones posibles de la clave
+    key_candidates = itertools.product(ALPHABET, repeat=key_length)
+
+    # Procesar en paralelo
+    for key, decrypted_text, score, found in pool.imap_unordered(
+        evaluate_key, (( ''.join(k), ciphertext, threshold) for k in key_candidates)
+    ):
+        if found:  # Si encontramos una clave que parece correcta, detener
+            pool.terminate()
+            return key, decrypted_text
+        
+        if score > best_score:
+            best_score = score
+            best_key = key
+            best_text = decrypted_text
+    
+    pool.close()
+    pool.join()
+
+    return best_key, best_text
+
+# 📌 Programa principal
+def main():
+    # Cargar el texto cifrado
+    ciphertext = load_ciphertext()
+
+    # Estimar la longitud de la clave
+    key_length = estimate_key_length(ciphertext)
+    print(f"🔑 Longitud estimada de la clave: {key_length}")
+
+    # Encontrar la mejor clave posible usando paralelización
+    key, plaintext = find_best_key_parallel(ciphertext, key_length)
+
+    print(f"\n🔓 Clave encontrada: {key}\n")
+    print(f"📜 Texto descifrado:\n{plaintext[:500]}...")  # Mostrar primeras 500 letras
+
+    # Preguntar si seguir descifrando más opciones
+    while True:
+        decision = input("¿Quieres seguir buscando otra clave? (s/n): ").strip().lower()
+        if decision == 's':
+            key, plaintext = find_best_key_parallel(ciphertext, key_length)
+            print(f"\n🔓 Nueva clave encontrada: {key}\n")
+            print(f"📜 Texto descifrado:\n{plaintext[:500]}...")
+        else:
+            break
+
+# Ejecutar el programa
+if __name__ == "__main__":
+    main()
+
+Fin de mi script
+
+
+Te voy a dar a un ejemplo de como deberia de ser el resultado final mira que tiene pretty table y otras cosas bonitas entonces asi lo quiero 
+
+
+Inicio del ejemplo
+
+
+#!/usr/bin/env python
+# coding: utf-8
+
+# # Caesar Brute Force
+
+# In[6]:
+
+
+import os
+
+# Obtener el directorio actual en Jupyter Notebook
+directorio_actual = os.getcwd()
+
+# Buscar el directorio raíz "Cryptography"
+while not os.path.basename(directorio_actual) == "Cryptography":
+    directorio_actual = os.path.dirname(directorio_actual)  # Retroceder un nivel
+
+# Construir la ruta del archivo cifrado
+ruta_archivo = os.path.join(directorio_actual, "Cifrados", "ceasar.txt")
+
+# Verificar si el archivo existe antes de abrirlo
+if os.path.exists(ruta_archivo):
+    with open(ruta_archivo, "r", encoding="utf-8") as file:
+        mensaje_cifrado = file.read().strip().upper()
+    print(f"Archivo cargado desde: {ruta_archivo}")
+else:
+    print(f"❌ Error: No se encontró el archivo en {ruta_archivo}")
+
+
+# In[14]:
+
+
+import string
+import matplotlib.pyplot as plt
+from prettytable import PrettyTable
+from collections import Counter
+from colorama import init, Fore, Style
+from dic import words  # Importamos el diccionario de palabras en español
+
+# Inicializar colorama
+init(autoreset=True)
+
+# 📌 Definir el alfabeto en español con la "Ñ"
+ALFABETO = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
+
+# 📌 Distribución teórica de frecuencias en español
+distribucion_teorica = {
+    "A": 12.53, "B": 1.42, "C": 4.68, "D": 5.86, "E": 13.68, "F": 0.69, "G": 1.01, "H": 0.70,
+    "I": 6.25, "J": 0.44, "K": 0.02, "L": 4.97, "M": 3.15, "N": 6.71, "Ñ": 0.31, "O": 8.68,
+    "P": 2.51, "Q": 0.88, "R": 6.87, "S": 7.98, "T": 4.63, "U": 3.93, "V": 0.90, "W": 0.01,
+    "X": 0.22, "Y": 0.90, "Z": 0.52
+}
+
+
+mensaje_cifrado.strip().upper()
+
+
+# ## Calcular la frencuencia observable
+
+# In[ ]:
+
+
+def analizar_frecuencia(texto):
+    """Calcula la frecuencia de letras en el texto cifrado."""
+    total = len(texto)
+    frecuencia = Counter(texto.upper())
+
+    # Filtrar solo letras del alfabeto español
+    frecuencia_filtrada = {letra: (frecuencia[letra] / total) * 100 for letra in distribucion_teorica.keys() if letra in frecuencia}
+    
+    return frecuencia_filtrada
+
+# 📌 Calcular la frecuencia observada
+frecuencia_observada = analizar_frecuencia(mensaje_cifrado)
+
+# 📊 Crear tabla de frecuencias
+tabla_frecuencia = PrettyTable(["Letra", "Frecuencia (%)", "Teórica (%)", "Diferencia (%)"])
+for letra in sorted(frecuencia_observada.keys(), key=lambda x: frecuencia_observada[x], reverse=True):
+    teorica = distribucion_teorica[letra]
+    observada = frecuencia_observada[letra]
+    diferencia = round(abs(teorica - observada), 2)
+    tabla_frecuencia.add_row([letra, round(observada, 2), teorica, diferencia])
+
+print("📊 Comparación de Frecuencias")
+print(tabla_frecuencia)
+
+
+# In[17]:
+
+
+# 📌 Crear tabla de frecuencias
+tabla_frecuencia = PrettyTable(["Letra", "Frecuencia", "Probabilidad (%)"])
+for letra, freq in sorted(frecuencia_observada.items(), key=lambda x: x[1], reverse=True):
+    tabla_frecuencia.add_row([letra, round(freq * len(texto_cifrado) / 100), round(freq, 2)])
+
+print("📊 Análisis de Frecuencia de Caracteres")
+print(tabla_frecuencia)
+
+
+# ## Distribución teórica
+
+# In[18]:
+
+
+def analizar_frecuencia(texto):
+    """Calcula la frecuencia de letras en el texto cifrado."""
+    total = len(texto)
+    frecuencia = Counter(texto.upper())
+
+    # Filtrar solo letras del alfabeto español
+    frecuencia_filtrada = {letra: (frecuencia[letra] / total) * 100 for letra in distribucion_teorica.keys() if letra in frecuencia}
+    
+    return frecuencia_filtrada
+
+# 📌 Calcular la frecuencia observada
+frecuencia_observada = analizar_frecuencia(mensaje_cifrado)
+
+# 📊 Crear tabla de frecuencias
+tabla_frecuencia = PrettyTable(["Letra", "Frecuencia (%)", "Teórica (%)", "Diferencia (%)"])
+for letra in sorted(frecuencia_observada.keys(), key=lambda x: frecuencia_observada[x], reverse=True):
+    teorica = distribucion_teorica[letra]
+    observada = frecuencia_observada[letra]
+    diferencia = round(abs(teorica - observada), 2)
+    tabla_frecuencia.add_row([letra, round(observada, 2), teorica, diferencia])
+
+print("📊 Comparación de Frecuencias")
+print(tabla_frecuencia)
+
+
+# ## Gráficos
+
+# In[19]:
+
+
+import matplotlib.pyplot as plt
+
+letras = list(frecuencia_observada.keys())
+observada = [frecuencia_observada[letra] for letra in letras]
+teorica = [distribucion_teorica[letra] for letra in letras]
+
+plt.figure(figsize=(10, 5))
+plt.bar(letras, observada, alpha=0.6, label="Observada", color="blue")
+plt.bar(letras, teorica, alpha=0.6, label="Teórica", color="red")
+plt.xlabel("Letra")
+plt.ylabel("Frecuencia (%)")
+plt.title("Comparación de Frecuencias Observada vs. Teórica")
+plt.legend()
+plt.show()
+
+
+# In[20]:
+
+
+# 📌 Determinar la clave probable con base en la diferencia mínima
+letra_mas_comun = max(frecuencia_observada, key=frecuencia_observada.get)
+letra_mas_comun_esperada = max(distribucion_teorica, key=distribucion_teorica.get)
+
+# 📌 Diferencia de desplazamiento en el alfabeto
+desplazamiento_estimado = (ALFABETO.index(letra_mas_comun) - ALFABETO.index(letra_mas_comun_esperada)) % len(ALFABETO)
+
+print(f"🔑 Clave probable estimada (Cifrado César): {desplazamiento_estimado}")
+
+
+# La W aparece muchas veces (15.93%), pero en español casi nunca se usa (0.01%). Esto nos dice que W podría ser una E o una A, que son letras muy comunes en español.
+# 
+# Al comparar con el español normal, parece que el mensaje fue cambiado con un desplazamiento de 19 en el Cifrado César. Eso significa que cada letra pudo haber sido movida 19 lugares en el alfabeto.
+
+# In[21]:
+
+
+def descifrar_cesar(texto, shift):
+    """Descifra un texto con un desplazamiento dado en el Cifrado César."""
+    resultado = ""
+    for char in texto:
+        if char in ALFABETO:
+            indice = (ALFABETO.index(char) - shift) % len(ALFABETO)
+            resultado += ALFABETO[indice]
+        else:
+            resultado += char  # Mantener otros caracteres
+    return resultado
+
+def contar_palabras_validas(texto, diccionario):
+    """Intenta encontrar palabras en el texto sin espacios comparando con un diccionario."""
+    palabras_encontradas = 0
+    for i in range(len(texto)):
+        for j in range(i + 2, len(texto) + 1):  # Busca palabras de mínimo 2 letras
+            if texto[i:j].lower() in diccionario:
+                palabras_encontradas += 1
+    return palabras_encontradas
+
+def fuerza_bruta_cesar(mensaje):
+    """Prueba todos los desplazamientos (0-26) y muestra resultados con colores."""
+    
+    mejor_shift = None
+    mejor_texto = ""
+    mejor_palabras = 0
+
+    for shift in range(len(ALFABETO)):  
+        texto_descifrado = descifrar_cesar(mensaje, shift)
+        palabras_validas = contar_palabras_validas(texto_descifrado, words)
+
+        # Determinar color basado en cantidad de palabras acertadas
+        color = Fore.GREEN if palabras_validas > 5 else Fore.RED
+
+        print(f"{Fore.CYAN}Probando shift: {shift}")
+        print(f"{color}Palabras acertadas: {palabras_validas}")
+        print(f"{color}Resultado: {texto_descifrado[:100]}...")  # Solo imprime los primeros 100 caracteres
+        print(Style.RESET_ALL)
+
+        # Guardar el mejor resultado
+        if palabras_validas > mejor_palabras:
+            mejor_palabras = palabras_validas
+            mejor_shift = shift
+            mejor_texto = texto_descifrado
+
+    # Mostrar el mejor resultado encontrado
+    if mejor_shift is not None:
+        print(f"\n{Fore.YELLOW}🔹 Posible Clave: {mejor_shift}")
+        print(f"{Fore.GREEN}🔓 Mensaje Descifrado: {mejor_texto}\n")
+
+# 📌 Ejecutar la fuerza bruta
+fuerza_bruta_cesar(mensaje_cifrado)
+
+
+# ## Referencias
+# 
+# https://stackoverflow.com/questions/16291818/brute-force-caeser-cipher-python
+# https://dev.to/cognivibes/hacking-the-caesar-cipher-3ic1
+# GPT
+
+Fin del ejemplo
+
+¿Se enteinde lo que te pido? 
+
+El ultimo codigo que te pase es un ejemplo es como un template 
+
+
+
+Entonces necesito que me des los bloques de codigo para saber cual va en que area y con la ayuda del PDF quiero que elijas el metodo mas optimo y rapido para encontrar una solución por favor
