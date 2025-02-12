@@ -251,3 +251,30 @@ No se pero me imagino que tengo que extraer el binario o string de la iamgen par
 Pero sin usar librerías de como base64 usemos solo las que estan en utility por favor para poder hacerlo gracias (: 
 
 Hay una forma que aparte de guardarla pueda ver un preview de la imagen en el Jupiter notebook? 
+
+Bueno ahora ayudame hacer esto 
+
+
+Investigar como aplicar un xor a 2 imagnes. Para esto deben de eleccionar 2 imágenes,
+luego proceder hacer un xor entre las dos imágenes. Esto significa que una imagen es la
+original y la otra se utilizará como llave para aplicar el xor.
+a. Mostrar las imágenes utilizadas y el resultado, asi mismo explique que
+inconvenientes encontro al momento de realizar el xor.
+“Recordemos que cuando aplicamos la operación XOR a una imagen, estamos realizando
+una manipulación de bits en cada píxel de la imagen. La operación XOR combina dos
+conjuntos de bits en una posición correspondiente y produce un nuevo conjunto de bits
+como resultado. La peculiaridad del XOR es que devuelve 1 en una posición si los bits son
+diferentes y 0 si son iguales.”
+Tips:
+- Pueden utilizar la librería pillow (Images)
+o resize : tener el mismo tamaño de pixeles
+o fromarray: toma un array y crea una imagen
+- Pueden utilizar numpy
+o bitwise_xor: aplica un xor a nivel de bits de las imágenes
+from PIL import Image # pip install pillow
+import numpy as np
+
+
+
+Y tengo mis dos imagenes como image_1.jpeg y image_2.jpeg entonces me puedes ayudar ahora haciendo el ejercicio 2 por favor y cuando puedas siempre usa lo de utility para poder hacer las cosas 
+

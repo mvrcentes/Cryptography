@@ -1,1 +1,1 @@
-https://github.com/mvrcentes/Cryptography/tree/lab-2-a
+https://github.com/mvrcentes/Cryptography/tree/lab2-b
