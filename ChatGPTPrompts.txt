@@ -228,3 +228,26 @@ Agrega parametros para poder usar la misma función algo tipo
 def encrypt_with_fixed_key(self, text, static_key="", dynamic_key=56):
 
 O bueno no se si es mejor usar otra funcio para hacer esto 
+
+#region parte 2b 
+
+Tengo que hacer este labotratior 
+
+Entonces vayamos primero solo con el ejercicio 1 por favor 
+
+Usando Implementar el uso de la librería Pillow en python para manejo de imagenes
+
+En lugar de usar el xor de string que funcion o union de funciones de utility podémos usar para que esto funcione? 
+
+Bueno ahora dado eso pues hagamos esto 
+
+. Dada la imagen XOR_Imagen, y la llave “cifrados_2025” encontrar el valor original de la
+imagen.
+a. Deben de convertir la imagen a base 64 y aplicarle un xor con la llave para
+encontrar su valor
+
+No se pero me imagino que tengo que extraer el binario o string de la iamgen para que funcinoe y poder usar cifrados_2025 ayudame con eso por favor 
+
+Pero sin usar librerías de como base64 usemos solo las que estan en utility por favor para poder hacerlo gracias (: 
+
+Hay una forma que aparte de guardarla pueda ver un preview de la imagen en el Jupiter notebook? 
