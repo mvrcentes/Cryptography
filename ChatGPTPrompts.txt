@@ -83,3 +83,6 @@ Implementa una función que tome un mensaje en texto plano y lo cifre utilizando
 
 
 Keystream generado: [213, 5, 152, 188, 99, 138, 223, 82, 191, 63, 221, 133, 89, 95, 181, 46, 211, 85, 75, 105]
+
+Descifrado
+Implementa una función que tome el mensaje cifrado y lo descifre utilizando la misma operación XOR con el keystream. Asegúrate de que el descifrado reproduzca exactamente el mensaje original.
