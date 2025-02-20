@@ -72,3 +72,14 @@ Asegúrate de que el keystream tenga al menos la misma longitud que el mensaje a
 
 
 Es decirmodulizar esto para tenerlo separado.y verlo 
+
+Usando mi modulo de utility quiero importarlo para poder hacer esto 
+
+
+Implementa una función que tome un mensaje en texto plano y lo cifre utilizando la operación XOR con el keystream generado.
+
+
+¿O necesito generar una nueva funcionalidad para que funcione con lo que tengo? 
+
+
+Keystream generado: [213, 5, 152, 188, 99, 138, 223, 82, 191, 63, 221, 133, 89, 95, 181, 46, 211, 85, 75, 105]
