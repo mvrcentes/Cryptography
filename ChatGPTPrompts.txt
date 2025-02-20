@@ -86,3 +86,17 @@ Keystream generado: [213, 5, 152, 188, 99, 138, 223, 82, 191, 63, 221, 133, 89, 
 
 Descifrado
 Implementa una función que tome el mensaje cifrado y lo descifre utilizando la misma operación XOR con el keystream. Asegúrate de que el descifrado reproduzca exactamente el mensaje original.
+
+En que parte de mo codigo puedo agregar esto para cumplir con las consideraciones?
+
+
+Incluye en tu solución ejemplos de entrada y salida (texto plano, cifrado y descifrado).
+
+
+
+Agreguémoslos 3 ejemplos 
+
+Como puedo agregar esto y en que parte la puedo agregar en mi Jupyter Notebook? 
+
+
+Utiliza pruebas unitarias para validar que el cifrado y el descifrado funcionan correctamente.
