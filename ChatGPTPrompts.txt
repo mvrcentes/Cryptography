@@ -1,0 +1,74 @@
+Tenog que hacer este ejercicio 
+
+
+Entregable
+Repositorio Git con el código fuente
+Readme actualizado con instrucciones de uso
+Si es python pueden utilizar un notebook
+ 
+Objetivos del Ejercicio
+Comprender el concepto de un keystream y su importancia en los cifrados de flujo.
+Implementar un esquema básico de cifrado y descifrado utilizando XOR.
+Analizar las implicaciones de la reutilización del keystream y su longitud en la seguridad.
+ 
+Instrucciones
+1. Generación de Keystream
+Escriban una función en el lenguaje de programación que prefieran para generar un keystream pseudoaleatorio basado en:
+Un generador de números pseudoaleatorios (PRNG) básico.
+Una clave (seed/nonce) para inicializar el PRNG.
+Asegúrate de que el keystream tenga al menos la misma longitud que el mensaje a cifrar.
+2. Cifrado
+Implementa una función que tome un mensaje en texto plano y lo cifre utilizando la operación XOR con el keystream generado.
+3. Descifrado
+Implementa una función que tome el mensaje cifrado y lo descifre utilizando la misma operación XOR con el keystream. Asegúrate de que el descifrado reproduzca exactamente el mensaje original.
+4. Preguntas a Responder
+¿Qué sucede cuando cambias la clave utilizada para generar el keystream?
+¿Qué riesgos de seguridad existen si reutilizas el mismo keystream para cifrar dos mensajes diferentes?
+¿Cómo afecta la longitud del keystream a la seguridad del cifrado?
+¿Qué consideraciones debes tener al generar un keystream en un entorno real?
+ 
+Consideraciones Adicionales
+Incluye en tu solución ejemplos de entrada y salida (texto plano, cifrado y descifrado).
+Utiliza pruebas unitarias para validar que el cifrado y el descifrado funcionan correctamente.
+Reflexiona sobre las limitaciones de los generadores pseudoaleatorios simples en la seguridad de cifrados reales.
+ 
+Opcional: Mejorando la Seguridad
+Investiga cómo los cifrados de flujo modernos, como ChaCha20, generan keystreams y compáralo con tu implementación básica.
+¿Qué mejoras ofrecen estos algoritmos frente a un PRNG sencillo?
+
+
+
+Entonces quiero ir paso a paso
+
+Haciendolo ayudame hacerlo lo quiero hacer en un jupyter o que me recomiendas usar que es lo mas fácil pero vamos a ir paso a paso gracias 
+
+
+Based on this help me building 
+
+
+# Python3 code to implement the
+# approach
+import random
+from datetime import datetime
+ 
+# Passing the current time as the seed value
+random.seed(datetime.now())
+ 
+for i in range(5):
+    print(random.randint(0, 10), end="\t")
+ 
+# This code is contributed by phasing17
+
+
+
+Un generador de números pseudoaleatorios (PRNG) básico.
+
+Gracias ahora ayudame a comentar el codigo en español para ver donde esta aplicaod esto por favor o dámelo pero bloques por favor 
+
+
+Un generador de números pseudoaleatorios (PRNG) básico.
+Una clave (seed/nonce) para inicializar el PRNG.
+Asegúrate de que el keystream tenga al menos la misma longitud que el mensaje a cifrar.
+
+
+Es decirmodulizar esto para tenerlo separado.y verlo 
