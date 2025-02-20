@@ -100,3 +100,9 @@ Como puedo agregar esto y en que parte la puedo agregar en mi Jupyter Notebook?
 
 
 Utiliza pruebas unitarias para validar que el cifrado y el descifrado funcionan correctamente.
+
+
+Bueno ahora en base a esto quiero que me ayues hacer un readme dámelo en formato de markdown es de cir con los * o - y los tabs no proceses el markdown dámelo el texto puro 
+
+Solo estoy trabajando yo Marco Ramirez y hoy es 20 de febrero del 2025
+Nombre del ejercicio Ejercicio Stream Cipher
