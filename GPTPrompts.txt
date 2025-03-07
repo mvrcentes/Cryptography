@@ -1,0 +1,14 @@
+Bueno entonces dame una funciona pequeña para poder generar esto por favor 
+
+Implemente la generación aleatoria del la llave
+
+Lo suficiemnetemente aleatoria y que sea segura 
+
+
+Toma esto de idea para hacer esta parte del ejercicio "que tome un mensaje en texto plano y lo cifre implementando el algoritmo de cifrado DES con el modo ECB." Pero por favor analiza antes de hacerlo, tengo que hacer el relleno de bits a mano es decir que tenemos que crear la funcion 
+
+agregar comentarios 
+
+agreguemos esto 
+
+	1.	Verificar el tamaño de la clave: Aunque la clave generada es segura, puedes agregar una verificación para asegurarte de que siempre tenga 8 bytes antes de usarla.
