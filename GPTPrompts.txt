@@ -12,3 +12,12 @@ agregar comentarios
 agreguemos esto 
 
 	1.	Verificar el tamaño de la clave: Aunque la clave generada es segura, puedes agregar una verificación para asegurarte de que siempre tenga 8 bytes antes de usarla.
+
+Y necesito cumplir con esto 
+
+2. Generación una función cifrado y descifrado 3DES
+Escriban una función en el lenguaje de programación que prefieran, que tome un mensaje en texto plano y lo cifre implementando el algoritmo de cifrado 3DES con el modo CBC.
+Implemente la generación aleatoria del la llave
+Utilice la función de relleno de bits de la librería por medio de pad
+
+Entonces detente analizarlo para poder cumplir con todo paso a paso por favor 
