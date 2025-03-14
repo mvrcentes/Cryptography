@@ -16,3 +16,32 @@ Lo de in [1]
 Y esas cosas pues me gustaría poder modificarlo para que se acople a lo que necesito entonces eso de configuración que va antes no se si aplica para lo que necesito (: y cambiar los nombres gracias (: 
 
 redacta mejor mis respuestas 
+
+Ahora tengo que hacer esto 
+
+
+Parte 3: Implementando un Cifrado de Flujo con ChaCha20
+📍 Escenario: En lugar de AES, un sistema usa ChaCha20 para cifrar mensajes.
+ 
+🔹 Instrucciones:
+1.Implementar ChaCha20 para cifrar y descifrar mensajes.
+2.Comparar su rendimiento con AES en tiempos y consumo de memoria.
+
+
+
+Entonces si podemos acceder a valores reales de la memoria o cosas por el estilo y traficarlo me gustaría hacerlo 
+
+
+
+Directorios creados/verificados correctamente.
+
+Mensaje cifrado (hex): 9ba477cb8d632e28bd65450fbd5c60dd11f590848b082e4fbfc24ed785bcfe56a357064a79963f
+Mensaje descifrado: Este es un mensaje secreto con ChaCha20
+Tiempo de ChaCha20: 0.007050 segundos
+Tiempo de AES-CBC: 0.011301 segundos
+Consumo de memoria: 67.375 MB
+
+
+Pero solo hizo consumo de memoria solo para uno no para cada uno creo que hay que ponerlo en bloques diferentes de jupyter noteobook ¿no?
+
+redacta mejor mis respuestas
