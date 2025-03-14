@@ -45,3 +45,11 @@ Consumo de memoria: 67.375 MB
 Pero solo hizo consumo de memoria solo para uno no para cada uno creo que hay que ponerlo en bloques diferentes de jupyter noteobook ¿no?
 
 redacta mejor mis respuestas
+
+Estoy en jupyter notebook entonces podemos hacerlo con % para tirar los comando en la terminal y hacerlo o si conviene pues hacerlo en un .sh y luego ejecutarlo con % en el jupyter notebook la idea es ir viendo el proceso de que es lo que pasa, lo que si quiero que me ayudes es poner archivos de texto o cualquier cosa o usar la misma imagen de la parte1 para encriptarla en otra de las carpetas que encintemos ¿se entiende? 
+
+Antes de decifrar las cosas 
+
+¿Podémoste copiar la carpeta de prueba para ver como se ve cifrada y luego copiada y después de copiarla aplicar el descifrado ?
+
+redacta mejor mi respuesta
