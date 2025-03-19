@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  challenge1:
+    image: ludwing238/intro_ctf_challenge1
+    # build:
+      # context: ./challenge1
+      # dockerfile: Dockerfile
+    container_name: challenge1_ctf
+    command: ["tail", "-f", "/dev/null"]  # Esto evita que el contenedor se detenga
+    ports:
+      - "8081:8080"
+      - "2201:22"
+    volumes:
+      - ./challenge1:/challenge1
+    networks:
+      - ctf_network
+    # Deshabilitar logs para este contenedor
+    logging:
+      driver: "none"
+
+  challenge2:
+    image: ludwing238/intro_ctf_challenge2
+    # build:
+    #   context: ./challenge2
+    #   dockerfile: Dockerfile
+    container_name: challenge2_ctf
+    command: ["tail", "-f", "/dev/null"]  # Esto evita que el contenedor se detenga
+    ports:
+      - "8082:8080"
+      - "2202:22"
+    volumes:
+      - ./challenge2:/challenge2
+    networks:
+      - ctf_network
+      # Deshabilitar logs para este contenedor
+    logging:
+      driver: "none"
+
+  challenge3:
+    image: ludwing238/intro_ctf_challenge3
+    # build:
+    #   context: ./challenge3
+    #   dockerfile: Dockerfile
+    container_name: challenge3_ctf
+    command: ["tail", "-f", "/dev/null"]  # Esto evita que el contenedor se detenga
+    ports:
+      - "8083:8080"
+      - "2203:22"
+    volumes:
+      - ./challenge3:/challenge3
+    networks:
+      - ctf_network
+    # Deshabilitar logs para este contenedor
+    logging:
+      driver: "none"
+
+  challenge4:
+    image: ludwing238/intro_ctf_challenge4
+    # build:
+    #   context: ./challenge4
+    #   dockerfile: Dockerfile
+    container_name: challenge4_ctf
+    command: ["tail", "-f", "/dev/null"]  # Esto evita que el contenedor se detenga
+    ports:
+      - "8084:8080"
+      - "2204:22"
+    volumes:
+      - ./challenge4:/challenge4
+    networks:
+      - ctf_network
+    # Deshabilitar logs para este contenedor
+    logging:
+      driver: "none"
+
+networks:
+  ctf_network:
+    driver: bridge
