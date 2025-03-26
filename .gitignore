@@ -1,0 +1,8 @@
+.DS_Store
+
+challenges/
+challenges_volumes/
+
+
+# python stuff
+__pycache__/

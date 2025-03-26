@@ -1,77 +1,58 @@
 version: '3.8'
 
 services:
-  challenge1:
-    image: ludwing238/intro_ctf_challenge1
-    # build:
-      # context: ./challenge1
-      # dockerfile: Dockerfile
-    container_name: challenge1_ctf
+  luffy_image:
+    build:
+      context: ./challenges/luffy
+      dockerfile: Dockerfile
+    container_name: luffy_challenge
     command: ["tail", "-f", "/dev/null"]  # Esto evita que el contenedor se detenga
     ports:
       - "8081:8080"
       - "2201:22"
     volumes:
-      - ./challenge1:/challenge1
+      - ./challenges_volumes/luffy_ctf:/luffy_ctf
     networks:
       - ctf_network
-    # Deshabilitar logs para este contenedor
-    logging:
-      driver: "none"
-
-  challenge2:
-    image: ludwing238/intro_ctf_challenge2
-    # build:
-    #   context: ./challenge2
-    #   dockerfile: Dockerfile
-    container_name: challenge2_ctf
+  zoro_image:
+    build:
+      context: ./challenges/zoro
+      dockerfile: Dockerfile
+    container_name: zoro_challenge
     command: ["tail", "-f", "/dev/null"]  # Esto evita que el contenedor se detenga
     ports:
       - "8082:8080"
       - "2202:22"
     volumes:
-      - ./challenge2:/challenge2
+      - ./challenges_volumes/zoro_ctf:/zoro_ctf
     networks:
-      - ctf_network
-      # Deshabilitar logs para este contenedor
-    logging:
-      driver: "none"
-
-  challenge3:
-    image: ludwing238/intro_ctf_challenge3
-    # build:
-    #   context: ./challenge3
-    #   dockerfile: Dockerfile
-    container_name: challenge3_ctf
+      - ctf_network  
+  nami_image:
+    build:
+      context: ./challenges/nami
+      dockerfile: Dockerfile
+    container_name: nami_challenge
     command: ["tail", "-f", "/dev/null"]  # Esto evita que el contenedor se detenga
     ports:
       - "8083:8080"
       - "2203:22"
     volumes:
-      - ./challenge3:/challenge3
+      - ./challenges_volumes/nami_ctf:/nami_ctf
     networks:
       - ctf_network
-    # Deshabilitar logs para este contenedor
-    logging:
-      driver: "none"
-
-  challenge4:
-    image: ludwing238/intro_ctf_challenge4
-    # build:
-    #   context: ./challenge4
-    #   dockerfile: Dockerfile
-    container_name: challenge4_ctf
+  usopp_image:
+    build:
+      context: ./challenges/usopp
+      dockerfile: Dockerfile
+    container_name: usopp_challenge
     command: ["tail", "-f", "/dev/null"]  # Esto evita que el contenedor se detenga
     ports:
       - "8084:8080"
       - "2204:22"
     volumes:
-      - ./challenge4:/challenge4
+      - ./challenges_volumes/usopp_ctf:/usopp_ctf
     networks:
       - ctf_network
-    # Deshabilitar logs para este contenedor
-    logging:
-      driver: "none"
 
 networks:
   ctf_network:

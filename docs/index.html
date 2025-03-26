@@ -1,173 +1,289 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CTF Intro a Cifrados</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: "Roboto", sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f5f5f5;
-        color: #333;
-        line-height: 1.6;
-      }
-      header {
-        background-color: #0078d7;
-        color: #fff;
-        padding: 20px 0;
-        text-align: center;
-      }
-      header h1 {
-        margin: 0;
-        font-size: 2.5rem;
-      }
-      header p {
-        margin: 10px 0 0;
-        font-size: 1.2rem;
-      }
-      .container {
-        max-width: 900px;
-        margin: 20px auto;
-        padding: 20px;
-        background: #fff;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
-      .challenge {
-        margin-bottom: 30px;
-      }
-      .challenge img {
-        width: 100%;
-        height: auto;
-        border-radius: 5px;
-      }
-      .challenge h2 {
-        color: #0078d7;
-        margin-top: 10px;
-      }
-      footer {
-        text-align: center;
-        margin: 20px 0;
-        padding: 10px 0;
-        background-color: #0078d7;
-        color: #fff;
-      }
-      footer a {
-        color: #ffcc00;
-        text-decoration: none;
-        font-weight: bold;
-      }
-      footer a:hover {
-        text-decoration: underline;
-      }
-    </style>
+    <title>CTF - Cifrados Simétricos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
+  <body class="bg-gray-900 text-white font-sans">
     <header>
-      <h1>CTF - Introducción a Cifrados</h1>
-      <p>
-        ¡Aprende
-        <a
-          href="https://locano-uvg.github.io/cifrados-25/temas/cifrados/index.html"
-          target="_blank"
-          >conceptos básicos</a
-        >
-        de cifrado mientras resuelves desafíos prácticos!
-      </p>
+      <nav class="bg-gray-800 p-4">
+        <div class="max-w-3xl mx-auto flex justify-between items-center">
+          <h1 class="text-2xl font-bold">CTF - Cifrados Simétricos</h1>
+          <a
+            href="https://github.com/locano-uvg/ctf_intro_ciphers"
+            class="text-blue-400 hover:underline"
+            >Repositorio</a
+          >
+        </div>
+      </nav>
     </header>
+    <div class="max-w-3xl mx-auto p-6">
+      <p class="text-center text-gray-400 mb-4">
+        Explora los retos y aprende sobre cifrados de flujo.
+      </p>
 
-    <div class="container">
-      <section class="challenge">
-        <h2>Desafío 1: Logs y Configuración</h2>
-        <div style="display: flex; align-items: center; margin-bottom: 10px; gap: 10px;">
-          <img
-            src="images/logs.webp"
-            alt="Challenge 1"
-            style="
-              height: 200px;
-              width: auto;
-              display: inline;
-              align-items: center;
-            "
-          />
-          <p>
-            Revisa archivos del sistema y logs para encontrar información oculta
-            y flags.
-          </p>
+      <div class="space-y-4">
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <button
+            class="w-full text-left font-semibold text-lg"
+            onclick="toggleDropdown('luffy')"
+          >
+            ▶ Luffy - XOR
+          </button>
+          <div id="luffy" class="hidden mt-2 text-gray-300">
+            <div class="flex justify-center">
+              <img src="./poneglyphs/luffy.jpeg" alt="Luffy Challenge Image" class="w-1/2 h-auto mb-4">
+            </div>
+            <p>
+              Descifra un mensaje cifrado con XOR utilizando un análisis de
+              frecuencia.
+            </p>
+            <h3 class="font-semibold mt-2">¿Qué es XOR?</h3>
+            <p>
+              La operación XOR (eXclusive OR) combina dos bits de entrada y
+              produce un bit de salida. Es una operación fundamental en
+              criptografía.
+            </p>
+            <h3 class="font-semibold mt-2">Vulnerabilidades de XOR</h3>
+            <ul class="list-disc list-inside">
+              <li>
+                Si la clave se reutiliza, es posible extraer información del
+                texto original.
+              </li>
+              <li>
+                Si la clave es débil o predecible, se puede descifrar el
+                mensaje.
+              </li>
+              <li>
+                El análisis de frecuencia puede revelar patrones en el texto
+                cifrado.
+              </li>
+            </ul>
+            <h3 class="font-semibold mt-2">Objetivo del reto</h3>
+            <p>
+              Analizar un mensaje cifrado con XOR y encontrar patrones para
+              descifrar el mensaje original.
+            </p>
+          </div>
         </div>
-      </section>
-
-      <section class="challenge">
-        <h2>Desafío 2: Cifrado César</h2>
-       <div style="display: flex; align-items: center; margin-bottom: 10px; gap: 10px;">
-          <img
-            src="images/cesar.webp"
-            alt="Challenge 2"
-            style="
-              height: 200px;
-              width: auto;
-              display: inline;
-              align-items: center;
-            "
-          />
-          <p>
-            Descubre cómo funciona el cifrado César y cómo puedes descifrar
-            mensajes cifrados con este método.
-          </p>
-
-       </div>
-      </section>
-
-      <section class="challenge">
-        <h2>Desafío 3: ROT13</h2>
-       <div style="display: flex; align-items: center; margin-bottom: 10px; gap: 10px;">
-          <img
-            src="images/rot.webp"
-            alt="Challenge 3"
-            style="
-              height: 200px;
-              width: auto;
-              display: inline;
-              align-items: center;
-            "
-          />
-          <p>
-            Aplica el cifrado ROT13 para descifrar mensajes encriptados y
-            encontrar flags ocultas.
-          </p>
-      </section>
-
-      <section class="challenge">
-        <h2>Desafío 4: Análisis de Frecuencia</h2>
-       <div style="display: flex; align-items: center; margin-bottom: 10px; gap: 10px;">
-          <img
-            src="images/frequency.png"
-            alt="Challenge 4"
-            style="
-              height: 200px;
-              width: auto;
-              display: inline;
-              align-items: center;
-            "
-          />
-          <p>
-            Utiliza el análisis de frecuencia para descifrar mensajes encriptados
-            y encontrar flags ocultas.
-          </p>
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <button
+            class="w-full text-left font-semibold text-lg"
+            onclick="toggleDropdown('zoro')"
+          >
+            ▶ Zoro - Rompiendo RC4
+          </button>
+          <div id="zoro" class="hidden mt-2 text-gray-300">
+            <div class="flex justify-center">
+              <img src="./poneglyphs/zoro.jpeg" alt="Zoro Challenge Image" class="w-1/2 h-auto mb-4">
+            </div>
+            <p>
+              Descifra un mensaje cifrado con RC4 utilizando un análisis del
+              flujo de datos.
+            </p>
+            <h3 class="font-semibold mt-2">¿Qué es RC4?</h3>
+            <p>
+              RC4 (Rivest Cipher 4) es un cifrado de flujo ampliamente utilizado
+              en el pasado. Se basa en una clave secreta que inicializa un
+              estado interno de 256 bytes, que luego se usa para generar un
+              flujo de claves pseudoaleatorio.
+            </p>
+            <h3 class="font-semibold mt-2">Vulnerabilidades de RC4</h3>
+            <ul class="list-disc list-inside">
+              <li>Sesgo en la generación de flujo de claves.</li>
+              <li>Debilidades en la inicialización de la clave.</li>
+              <li>Fácil explotación con ataques de correlación.</li>
+            </ul>
+            <h3 class="font-semibold mt-2">Objetivo del reto</h3>
+            <p>
+              Analizar un flujo de datos cifrado con RC4 y encontrar
+              vulnerabilidades para descifrar el mensaje.
+            </p>
+          </div>
         </div>
-      </section>
+
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <button
+            class="w-full text-left font-semibold text-lg"
+            onclick="toggleDropdown('usopp')"
+          >
+            ▶ Usopp - Stream Cipher Custom
+          </button>
+          <div id="usopp" class="hidden mt-2 text-gray-300">
+            <div class="flex justify-center">
+              <img src="./poneglyphs/usopp.jpeg" alt="Usopp Challenge Image" class="w-1/2 h-auto mb-4">
+            </div>
+            <p>
+              Descifra un mensaje oculto en archivos de texto usando XOR con
+              claves derivadas del carné.
+            </p>
+            <h3 class="font-semibold mt-2">¿Qué es un cifrado de flujo?</h3>
+            <p>
+              Los cifrados de flujo generan una secuencia pseudoaleatoria de
+              bits (keystream) que se combina con el texto original mediante una
+              operación XOR.
+            </p>
+            <h3 class="font-semibold mt-2">
+              Debilidades de los cifrados de flujo personalizados
+            </h3>
+            <ul class="list-disc list-inside">
+              <li>
+                Si la clave se reutiliza, es posible extraer información del
+                texto original.
+              </li>
+              <li>
+                Si el generador de claves es predecible, se puede reconstruir la
+                secuencia.
+              </li>
+              <li>La seguridad depende de la calidad del PRNG utilizado.</li>
+            </ul>
+            <h3 class="font-semibold mt-2">Objetivo del reto</h3>
+            <p>
+              Analizar la implementación de un cifrado de flujo personalizado y
+              encontrar fallos en la generación de claves para descifrar el
+              mensaje.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <button
+            class="w-full text-left font-semibold text-lg"
+            onclick="toggleDropdown('nami')"
+          >
+            ▶ Nami - ChaCha20 Playground
+          </button>
+          <div id="nami" class="hidden mt-2 text-gray-300">
+            <div class="flex justify-center">
+              <img src="./poneglyphs/nami.jpeg" alt="Nami Challenge Image" class="w-1/2 h-auto mb-4">
+            </div>
+            <p>
+              Experimenta con el cifrado ChaCha20 y observa el impacto del nonce
+              y la clave.
+            </p>
+            <h3 class="font-semibold mt-2">¿Qué es ChaCha20?</h3>
+            <p>
+              ChaCha20 es un cifrado de flujo moderno diseñado para ser seguro y
+              eficiente, usado en protocolos como TLS y WireGuard.
+            </p>
+            <h3 class="font-semibold mt-2">Importancia del Nonce</h3>
+            <ul class="list-disc list-inside">
+              <li>El nonce debe ser único para cada mensaje cifrado.</li>
+              <li>
+                Si se reutiliza un nonce con la misma clave, se pueden realizar
+                ataques criptográficos.
+              </li>
+            </ul>
+            <h3 class="font-semibold mt-2">Objetivo del reto</h3>
+            <p>
+              Experimentar con ChaCha20 cifrando y descifrando mensajes,
+              analizando el impacto del nonce y la clave.
+            </p>
+          </div>
+        </div>
+
+        <!-- <div class="bg-gray-800 p-4 rounded-lg">
+                <button class="w-full text-left font-semibold text-lg" onclick="toggleDropdown('sanji')">▶ Sanji - Ataque de correlación</button>
+                <div id="sanji" class="hidden mt-2 text-gray-300">
+                  <div class="flex justify-center">
+              <img src="./poneglyphs/sanji.jpeg" alt="Nami Challenge Image" class="w-1/2 h-auto mb-4">
+            </div>
+                    <p>Identifica patrones en flujos cifrados reutilizando la misma clave.</p>
+                    <h3 class="font-semibold mt-2">¿Qué es un ataque de correlación?</h3>
+                    <p>Los ataques de correlación explotan patrones en flujos cifrados cuando se reutiliza la clave o hay debilidades en el generador de claves.</p>
+                    <h3 class="font-semibold mt-2">Ejemplo de vulnerabilidad</h3>
+                    <ul class="list-disc list-inside">
+                        <li>Si un cifrado de flujo usa la misma clave para dos mensajes, es posible comparar los textos cifrados y encontrar similitudes.</li>
+                        <li>Algunas implementaciones deficientes generan claves con patrones predecibles.</li>
+                    </ul>
+                    <h3 class="font-semibold mt-2">Objetivo del reto</h3>
+                    <p>Analizar los flujos cifrados y aplicar técnicas de ataque de correlación para recuperar información sensible.</p>
+                </div>
+            </div>
+            
+            <div class="bg-gray-800 p-4 rounded-lg">
+                <button class="w-full text-left font-semibold text-lg" onclick="toggleDropdown('robin')">▶ Robin - TRNG vs PRNG inseguro</button>
+                <div id="robin" class="hidden mt-2 text-gray-300">
+                  <div class="flex justify-center">
+              <img src="./poneglyphs/robin.jpeg" alt="Nami Challenge Image" class="w-1/2 h-auto mb-4">
+            </div>
+                    <p>Explora las diferencias entre generadores de números pseudoaleatorios y verdaderamente aleatorios.</p>
+                    <h3 class="font-semibold mt-2">Diferencias clave</h3>
+                    <ul class="list-disc list-inside">
+                        <li><strong>TRNG (True Random Number Generator)</strong>: Utiliza fuentes físicas impredecibles (ruido térmico, radiación cósmica).</li>
+                        <li><strong>PRNG (Pseudo Random Number Generator)</strong>: Utiliza algoritmos deterministas para generar secuencias predecibles.</li>
+                    </ul>
+                    <h3 class="font-semibold mt-2">Vulnerabilidades de PRNG inseguros</h3>
+                    <ul class="list-disc list-inside">
+                        <li>Si el estado inicial (seed) es predecible, el PRNG puede ser explotado.</li>
+                        <li>Algunos PRNG tienen ciclos cortos, lo que permite predecir futuros valores.</li>
+                    </ul>
+                    <h3 class="font-semibold mt-2">Objetivo del reto</h3>
+                    <p>Analizar y explotar un PRNG inseguro para predecir la secuencia de números generados.</p>
+                </div>
+            </div> -->
+
+        <!-- Sección de Tips y Recursos -->
+        <div class="bg-gray-800 p-6 rounded-lg mt-6">
+          <h2 class="text-2xl font-bold mb-4">🔎 Tips y Recursos</h2>
+          <ul class="list-disc list-inside text-gray-300">
+            <li>
+              Explora los archivos del sistema con <code>ls -la</code> y
+              <code>find</code>.
+            </li>
+            <li>
+              Revisa los procesos en ejecución con <code>ps aux</code> y
+              <code>top</code>.
+            </li>
+            <li>
+              Analiza los permisos de archivos sospechosos con
+              <code>stat</code> y <code>ls -l</code>.
+            </li>
+            <li>
+              Utiliza <code>strings</code> para buscar texto en archivos
+              binarios.
+            </li>
+          </ul>
+          <h3 class="text-xl font-semibold mt-4">📚 Recursos útiles</h3>
+          <ul class="list-disc list-inside text-gray-300">
+            <li>
+              <a
+                href="https://cryptopals.com/"
+                class="text-blue-400 hover:underline"
+                >Cryptopals - Retos de criptografía</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://ctf101.org/"
+                class="text-blue-400 hover:underline"
+                >CTF101 - Introducción a los CTFs</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.owasp.org/"
+                class="text-blue-400 hover:underline"
+                >OWASP - Seguridad en aplicaciones</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-
-    <footer>
-      <p>
-        Desarrollado con 💻 por
-        <a href="https://github.com/locano-uvg/ctf_intro_cifrados" target="_blank">Ludwing Cano</a>
+    <footer class="bg-gray-800 p-4 text-center mt-6">
+      <p class="text-gray-400"></p>
+        © 2025 CTF - Cifrados Simétricos | Universidad del Valle de Guatemala
       </p>
     </footer>
+
+    <script>
+      function toggleDropdown(id) {
+        const content = document.getElementById(id);
+        content.classList.toggle("hidden");
+      }
+    </script>
   </body>
 </html>
