@@ -1,2 +1,5 @@
 [ luffy ]
 b'Robin joined the Straw Hat Pirates, claiming Luffy was responsible for her continued existence,'
+
+[ zoro ]
+b'and traveled with them to Skypiea where another Poneglyph was held. There was a wall in the Shandorian ruins cryptically describing'

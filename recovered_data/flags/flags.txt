@@ -1,3 +1,5 @@
 [ luffy ]
 FLAG_b35c4df2bb82e669f413a2f57707d5f6
 
+[ zoro ]
+FLAG_df6996554cf497631b4b13402611f876
