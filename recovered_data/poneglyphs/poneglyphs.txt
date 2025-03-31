@@ -3,3 +3,6 @@ b'Robin joined the Straw Hat Pirates, claiming Luffy was responsible for her con
 
 [ zoro ]
 b'and traveled with them to Skypiea where another Poneglyph was held. There was a wall in the Shandorian ruins cryptically describing'
+
+[ usopp ]
+b'the location of the Poneglyph in the same runes that the Poneglyphs themselves were inscribed with.'

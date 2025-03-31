@@ -21,7 +21,7 @@ def extraer_texto_metadata(imagen_path):
 # Uso del código para descifrar la imagen
 # Ejemplo de uso
 base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-image_path = os.path.join(base_dir, "recovered_data/extracted_images", "poneglyph_zoro.jpeg")
+image_path = os.path.join(base_dir, "recovered_data/extracted_images", "poneglyph_usopp.jpeg")
 student_id = input("Introduce tu carné para descifrar el mensaje: ")
 texto_cifrado = extraer_texto_metadata(image_path)
 decrypted_text = xor_cipher(texto_cifrado, student_id)
