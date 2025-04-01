@@ -1,3 +1,49 @@
+# 🏴‍☠️ Proyecto CTF – Cifrados de Flujo: One Piece Edition
+
+Este proyecto tiene como objetivo resolver una serie de retos tipo CTF (Capture The Flag) enfocados en el uso, análisis y ruptura de cifrados de flujo simétricos, incluyendo XOR, RC4 y ChaCha20.
+
+Cada reto representa una "isla" del universo de One Piece, en donde se encuentra una **piedra Poneglyph** cifrada que guarda una **flag secreta**. A través de técnicas de criptografía y reversing, se deben recuperar y documentar estos mensajes ocultos.
+
+---
+
+## 🎯 Objetivos
+
+- Aplicar conceptos de cifrado de flujo como XOR, RC4 y ChaCha20.
+- Identificar debilidades en generadores de clave.
+- Romper cifrados personalizados usando ataques conocidos (plaintext, análisis de flujo).
+- Documentar y organizar la información recuperada.
+
+---
+
+## 📁 Estructura del Proyecto
+
+```
+├── challenges/                # Retos generados
+├── challenges_volumes/       # Volúmenes Docker montados
+├── recovered_data/           # Datos extraídos desde los retos
+│   ├── extracted_images/     # Imágenes poneglyph recuperadas
+│   │   ├── poneglyph.jpeg              # Imagen base
+│   │   ├── poneglyph_dec.jpeg          # Imagen procesada (OCR)
+│   │   ├── poneglyph_zoro.jpeg         # Imagen RC4 (reto Zoro)
+│   │   ├── poneglyph_usopp.jpeg        # Imagen XOR custom (Usopp)
+│   │   ├── poneglyph_nami.jpeg         # Imagen ChaCha20 (Nami)
+│   ├── flags/
+│   │   └── flags.txt                   # Todas las flags encontradas
+│   ├── poneglyphs/
+│       └── poneglyphs.txt             # Textos extraídos de las imágenes
+├── docker-compose.yml
+├── generate_challenges.py
+├── test.py                   # Scripts personalizados para análisis
+└── README.md                 # Este archivo
+```
+## 🔧 Cómo ejecutar los retos
+
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/locano-uvg/ctf_onepice_symmetric_cipher.git
+   cd ctf_onepice_symmetric_cipher
+
+
 # CTF_ONEPICE_SYMMETRIC_CIPHER
 <a id="readme-top"></a>
 

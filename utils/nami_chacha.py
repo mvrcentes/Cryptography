@@ -9,14 +9,14 @@ def generate_key_nonce(user_id):
 
 
 def chacha20_encrypt(plaintext, user_id):
-    key, nonce = generate_key_nonce(user_id="1234")
+    key, nonce = generate_key_nonce(user_id=user_id)
     cipher = ChaCha20.new(key=key, nonce=nonce)
     ciphertext = cipher.encrypt(plaintext.encode())
     return ciphertext
 
 
 def chacha20_decrypt(ciphertext, user_id):
-    key, nonce = generate_key_nonce(user_id="1234")
+    key, nonce = generate_key_nonce(user_id=user_id)
     cipher = ChaCha20.new(key=key, nonce=nonce)
     plaintext = cipher.decrypt(ciphertext)
     return plaintext.decode()

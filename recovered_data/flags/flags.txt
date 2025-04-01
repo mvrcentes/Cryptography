@@ -6,3 +6,6 @@ FLAG_df6996554cf497631b4b13402611f876
 
 [ usopp ]
 FLAG_b5ff3480a8a752cd18ca8ec5508b945a
+
+[ nami ]
+FLAG_4daa40c1a70628ffae06274b3b8dae81
