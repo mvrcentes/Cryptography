@@ -1,5 +1,7 @@
 # 🏴‍☠️ Proyecto CTF – Cifrados de Flujo: One Piece Edition
 
+[PDF con el walktrough](proyectoCTF1.pdf)
+
 Este proyecto tiene como objetivo resolver una serie de retos tipo CTF (Capture The Flag) enfocados en el uso, análisis y ruptura de cifrados de flujo simétricos, incluyendo XOR, RC4 y ChaCha20.
 
 Cada reto representa una "isla" del universo de One Piece, en donde se encuentra una **piedra Poneglyph** cifrada que guarda una **flag secreta**. A través de técnicas de criptografía y reversing, se deben recuperar y documentar estos mensajes ocultos.
@@ -16,6 +18,8 @@ Cada reto representa una "isla" del universo de One Piece, en donde se encuentra
 ---
 
 ## 📁 Estructura del Proyecto
+* [Flags](recovered_data/flags/flags.txt)
+* [Parrafos poneglyphs](recovered_data/poneglyphs/poneglyphs.txt)
 
 ```
 ├── challenges/                # Retos generados
